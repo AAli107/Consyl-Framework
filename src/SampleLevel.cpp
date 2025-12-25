@@ -19,6 +19,7 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
     // if (isKeyDown(Key::ESCAPE))
     //     gl.stop();
 
+    // Use these to test out whether you could push all the keys
     if (isKeyDown(Key::A)) keyboardStr = "A";
     if (isKeyDown(Key::B)) keyboardStr = "B";
     if (isKeyDown(Key::C)) keyboardStr = "C";
