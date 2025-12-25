@@ -125,4 +125,11 @@ static short mapKeyToVk(Key k) {
     }
 }
 
+bool isKeyDown(Key k) {
+    HWND fg = GetForegroundWindow();
+    HWND cw = GetConsoleWindow();
+    if (!(fg != NULL && cw != NULL && fg == cw)) return false;
+    return (GetAsyncKeyState(mapKeyToVk(k)) & 0x8000) != 0;
+}
+
 #endif
