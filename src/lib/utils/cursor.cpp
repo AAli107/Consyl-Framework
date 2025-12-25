@@ -1,4 +1,5 @@
 #include "cursor.h"
+#include <iostream>
 
 #ifdef _WIN32
 #include <windows.h>

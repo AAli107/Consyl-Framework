@@ -1,7 +1,7 @@
 #ifndef SLEEP_H
 #define SLEEP_H
 
-#ifdef LINUX
+#if defined(LINUX) || defined(__linux__) || defined(__APPLE__)
 #include <unistd.h>
 #endif
 #ifdef _WIN32
