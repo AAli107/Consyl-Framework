@@ -5,11 +5,12 @@
 
 void sleep_ms(int milliseconds)
 {
-#ifdef LINUX
+#if defined(__linux__) || defined(__APPLE__)
     usleep(milliseconds * 1000);
-#endif
-#ifdef _WIN32
+#elif defined(_WIN32)
     Sleep(milliseconds);
+#else
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 #endif
 }
 
