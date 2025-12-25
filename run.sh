@@ -10,7 +10,7 @@ mkdir -p "$BUILD_FOLDER"
 
 CPP_FILES=$(find "$SRC_FOLDER" -name "*.cpp")
 
-g++ -O3 $CPP_FILES -o "$BUILD_FOLDER/$EXE_OUTPUT_FILE"
+g++ -std=c++20 -O3 $CPP_FILES -o "$BUILD_FOLDER/$EXE_OUTPUT_FILE"
 
 if [ -f "$BUILD_FOLDER/$EXE_OUTPUT_FILE" ]; then
     "./$BUILD_FOLDER/$EXE_OUTPUT_FILE"

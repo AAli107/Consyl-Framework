@@ -16,7 +16,7 @@ for /r "%SRC_FOLDER%" %%f in (*.cpp) do (
     set "CPP_FILES=!CPP_FILES! "%%f""
 )
 
-g++ -O3 !CPP_FILES! -o "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
+g++ -std=c++20 -O3 !CPP_FILES! -o "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
 
 if exist "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%" (
     start "" "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
