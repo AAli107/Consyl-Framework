@@ -118,14 +118,14 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
     if (isKeyDown(Key::PERIOD)) keyboardStr = "PERIOD";
     if (isKeyDown(Key::SLASH)) keyboardStr = "SLASH";
     if (isKeyDown(Key::PRINT_SCREEN)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::SCROLL_LOCK)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::PAUSE)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::INSERT)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::HOME)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::PAGE_UP)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::DELETE)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::END)) keyboardStr = "PRINT_SCREEN";
-    if (isKeyDown(Key::PAGE_DOWN)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::SCROLL_LOCK)) keyboardStr = "SCROLL_LOCK";
+    if (isKeyDown(Key::PAUSE)) keyboardStr = "PAUSE";
+    if (isKeyDown(Key::INSERT)) keyboardStr = "INSERT";
+    if (isKeyDown(Key::HOME)) keyboardStr = "HOME";
+    if (isKeyDown(Key::PAGE_UP)) keyboardStr = "PAGE_UP";
+    if (isKeyDown(Key::DELETE)) keyboardStr = "DELETE";
+    if (isKeyDown(Key::END)) keyboardStr = "END";
+    if (isKeyDown(Key::PAGE_DOWN)) keyboardStr = "PAGE_DOWN";
 }
 
 void SampleLevel::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
