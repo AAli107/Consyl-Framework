@@ -23,14 +23,13 @@ enum class Key : uint16_t {
     
     MINUS, EQUAL, L_BRACKET, R_BRACKET, BACKSLASH, SEMICOLON, APOSTROPHE, GRAVE, COMMA, PERIOD, SLASH,
 
-    PRINT_SCREEN, SCROLL_LOCK, PAUSE, INSERT, HOME, PAGE_UP, DEL, END, PAGE_DOWN,
+    PRINT_SCREEN, SCROLL_LOCK, PAUSE, INSERT, HOME, PAGE_UP, DELETE, END, PAGE_DOWN,
     
     COUNT // This is just in case if we wanna get the length of this enum :P
 };
 
 
 #ifdef _WIN32
-#include <windows.h>
 bool isKeyDown(Key k);
 #endif
 

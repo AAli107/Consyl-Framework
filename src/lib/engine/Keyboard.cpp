@@ -1,10 +1,13 @@
 #include "Keyboard.h"
 
 #ifdef _WIN32
+#include <windows.h>
+
 HWND consoleWin = GetConsoleWindow();
 
 short mapKeyToVk(Key k)
- {
+{
+    #undef DELETE
     switch (k) {
         case Key::A: return 'A';
         case Key::B: return 'B';
@@ -102,7 +105,7 @@ short mapKeyToVk(Key k)
         case Key::INSERT: return VK_INSERT;
         case Key::HOME: return VK_HOME;
         case Key::PAGE_UP: return VK_PRIOR;
-        case Key::DEL: return VK_DELETE;
+        case Key::DELETE: return VK_DELETE;
         case Key::END: return VK_END;
         case Key::PAGE_DOWN: return VK_NEXT;
         default: return 0;
