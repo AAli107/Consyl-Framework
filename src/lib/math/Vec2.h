@@ -7,7 +7,6 @@ class Vec2 {
 public:
     double x;
     double y;
-    double z;
 public:
     Vec2();
     Vec2(double x);
