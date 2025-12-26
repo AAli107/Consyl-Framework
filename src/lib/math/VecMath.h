@@ -7,5 +7,6 @@
 Vec2 project3D(Vec3 v);
 Vec2 screenToNormalizedSpace(Vec2 v, int screenWidth, int screenHeight);
 Vec2 normalizedToScreenSpace(Vec2 v, int screenWidth, int screenHeight);
+Vec3 rotate2D(Vec3 v, double angle);
 
 #endif
