@@ -78,6 +78,8 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
     if (isKeyDown(Key::ESCAPE)) keyboardStr = "ESCAPE";
     if (isKeyDown(Key::TAB)) keyboardStr = "TAB";
     if (isKeyDown(Key::BACKSPACE)) keyboardStr = "BACKSPACE";
+    if (isKeyDown(Key::CAPSLOCK)) keyboardStr = "CAPSLOCK";
+    if (isKeyDown(Key::OS_KEY)) keyboardStr = "OS_KEY";
     if (isKeyDown(Key::F1)) keyboardStr = "F1";
     if (isKeyDown(Key::F2)) keyboardStr = "F2";
     if (isKeyDown(Key::F3)) keyboardStr = "F3";
@@ -115,6 +117,15 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
     if (isKeyDown(Key::COMMA)) keyboardStr = "COMMA";
     if (isKeyDown(Key::PERIOD)) keyboardStr = "PERIOD";
     if (isKeyDown(Key::SLASH)) keyboardStr = "SLASH";
+    if (isKeyDown(Key::PRINT_SCREEN)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::SCROLL_LOCK)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::PAUSE)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::INSERT)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::HOME)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::PAGE_UP)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::DELETE)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::END)) keyboardStr = "PRINT_SCREEN";
+    if (isKeyDown(Key::PAGE_DOWN)) keyboardStr = "PRINT_SCREEN";
 }
 
 void SampleLevel::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
