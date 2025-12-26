@@ -11,6 +11,10 @@ Vec3::Vec3(double x, double y) : x(x), y(y), z(0) {}
 
 Vec3::Vec3(double x, double y, double z) : x(x), y(y), z(z) {}
 
+Vec3::Vec3(Vec2 v) : x(v.x), y(v.y), z(0)  {}
+
+Vec3::Vec3(Vec2 v, double z) : x(v.x), y(v.y), z(z)  {}
+
 double Vec3::length() const { return std::sqrt(x * x + y * y + z * z); }
 
 Vec3 Vec3::normalized() const { double len = length(); return len == 0 ? Vec3() : Vec3(x / len, y / len, z / len); }

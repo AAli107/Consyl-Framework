@@ -14,6 +14,8 @@ public:
     Vec3(double x);
     Vec3(double x, double y);
     Vec3(double x, double y, double z);
+    Vec3(Vec2 v);
+    Vec3(Vec2 v, double z);
 
     double length() const;
     Vec3 normalized() const;
