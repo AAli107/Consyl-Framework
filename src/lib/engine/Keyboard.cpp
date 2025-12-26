@@ -125,7 +125,6 @@ bool isKeyDown(Key k)
 #ifdef __linux__
 bool isKeyDown(Key k)
 {
-    (void)k;
     // TODO: implement isKeyDown for Linux
     return false;
 }
