@@ -14,7 +14,7 @@ enum class Key : uint16_t {
     
     L_SHIFT, R_SHIFT, L_CTRL, R_CTRL, L_ALT, R_ALT,
     
-    SPACE, ENTER, ESCAPE, TAB, BACKSPACE,
+    SPACE, ENTER, ESCAPE, TAB, BACKSPACE, CAPSLOCK, OS_KEY,
     
     F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
     
@@ -22,6 +22,8 @@ enum class Key : uint16_t {
     NUM_ADD, NUM_SUBTRACT, NUM_MULTIPLY, NUM_DIVIDE,
     
     MINUS, EQUAL, L_BRACKET, R_BRACKET, BACKSLASH, SEMICOLON, APOSTROPHE, GRAVE, COMMA, PERIOD, SLASH,
+
+    PRINT_SCREEN, SCROLL_LOCK, PAUSE, INSERT, HOME, PAGE_UP, DEL, END, PAGE_DOWN,
     
     COUNT // This is just in case if we wanna get the length of this enum :P
 };
