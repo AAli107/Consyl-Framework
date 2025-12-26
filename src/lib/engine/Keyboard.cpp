@@ -117,7 +117,7 @@ short mapKeyToVk(Key k)
 bool isKeyDown(Key k)
 {
     HWND fgWindow = GetForegroundWindow();
-    if (!(fgWindow != NULL && consoleWin != NULL && fgWindow == consoleWin)) return false;
+    if (fgWindow == NULL || consoleWin == NULL || fgWindow != consoleWin) return false;
     return (GetAsyncKeyState(mapKeyToVk(k)) & 0x8000) != 0;
 }
 #endif
