@@ -8,8 +8,6 @@ Vec2 screenToNormalizedSpace(Vec2 v, int screenWidth, int screenHeight) { return
 
 Vec2 normalizedToScreenSpace(Vec2 v, int screenWidth, int screenHeight) { return Vec2((v.x + 1.0) * 0.5 * screenWidth, (1.0 - (v.y + 1.0) * 0.5) * screenHeight); }
 
-Vec3 rotate2D(Vec3 v, double angle) 
-{ 
-    double c = std::cos(angle); double s = std::sin(angle); 
-    return Vec3(c * v.x - s * v.y, s * v.x + c * v.y, v.z);
-}
+Vec3 rotate2D(Vec3 v, double angle) { double c = std::cos(angle); double s = std::sin(angle); return Vec3(c * v.x - s * v.y, s * v.x + c * v.y, v.z); }
+
+Vec3 Cross(const Vec3 v1, const Vec3 v2) { return Vec3( v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x ); }
