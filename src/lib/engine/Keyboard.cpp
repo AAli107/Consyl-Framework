@@ -88,6 +88,7 @@ short mapKeyToVk(Key k)
         case Key::NUM_SUBTRACT: return VK_SUBTRACT;
         case Key::NUM_MULTIPLY: return VK_MULTIPLY;
         case Key::NUM_DIVIDE: return VK_DIVIDE;
+        case Key::NUM_PERIOD: return VK_DECIMAL;
         case Key::MINUS: return VK_OEM_MINUS;
         case Key::EQUAL: return VK_OEM_PLUS;
         case Key::L_BRACKET: return VK_OEM_4;

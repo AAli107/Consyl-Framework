@@ -106,6 +106,7 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
     if (isKeyDown(Key::NUM_SUBTRACT)) keyboardStr = "NUM_SUBTRACT";
     if (isKeyDown(Key::NUM_MULTIPLY)) keyboardStr = "NUM_MULTIPLY";
     if (isKeyDown(Key::NUM_DIVIDE)) keyboardStr = "NUM_DIVIDE";
+    if (isKeyDown(Key::NUM_PERIOD)) keyboardStr = "NUM_PERIOD";
     if (isKeyDown(Key::MINUS)) keyboardStr = "MINUS";
     if (isKeyDown(Key::EQUAL)) keyboardStr = "EQUAL";
     if (isKeyDown(Key::L_BRACKET)) keyboardStr = "L_BRACKET";
