@@ -2,7 +2,7 @@
 #include "../../SampleLevel.h"
 #include "../utils/console.h"
 
-static constexpr char* title = "Consyl Game";
+static const char* title = "Consyl Game";
 
 int main() 
 {
