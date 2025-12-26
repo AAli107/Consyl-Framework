@@ -2,6 +2,7 @@
 #define VEC3_H
 
 #include <string>
+#include "Vec2.h"
 
 class Vec3 {
 public:
@@ -22,6 +23,7 @@ public:
 
     Vec3 copy() const;
     std::string toString() const;
+    operator Vec2();
 };
 
 Vec3 operator+(const Vec3& a, const Vec3& b);
