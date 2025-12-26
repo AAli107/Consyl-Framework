@@ -53,6 +53,8 @@ short mapKeyToVk(Key k)
         case Key::ESCAPE: return VK_ESCAPE;
         case Key::TAB: return VK_TAB;
         case Key::BACKSPACE: return VK_BACK;
+        case Key::CAPSLOCK: return VK_BACK;
+        case Key::OS_KEY: return VK_LWIN;
         case Key::LEFT: return VK_LEFT;
         case Key::RIGHT: return VK_RIGHT;
         case Key::UP: return VK_UP;
@@ -94,6 +96,15 @@ short mapKeyToVk(Key k)
         case Key::COMMA: return VK_OEM_COMMA;
         case Key::PERIOD: return VK_OEM_PERIOD;
         case Key::SLASH: return VK_OEM_2;
+        case Key::PRINT_SCREEN: return VK_SNAPSHOT;
+        case Key::SCROLL_LOCK: return VK_SCROLL;
+        case Key::PAUSE: return VK_PAUSE;
+        case Key::INSERT: return VK_INSERT;
+        case Key::HOME: return VK_HOME;
+        case Key::PAGE_UP: return VK_PRIOR;
+        case Key::DEL: return VK_DELETE;
+        case Key::END: return VK_END;
+        case Key::PAGE_DOWN: return VK_NEXT;
         default: return 0;
     }
 }
