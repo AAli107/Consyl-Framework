@@ -125,13 +125,104 @@ bool isKeyDown(Key k)
 #ifdef __linux__
 bool isKeyDown(Key k)
 {
-    // TODO: isKeydown Linux Implementation
+    (void)k;
+    // TODO: implement isKeyDown for Linux
+    return false;
 }
 #endif
 
 #ifdef __APPLE__
+#include <ApplicationServices/ApplicationServices.h>
+#include <Carbon/Carbon.h>
+
+static CGKeyCode mapKeyToMacKeycode(Key k)
+{
+    switch (k) {
+        case Key::A: return kVK_ANSI_A;
+        case Key::B: return kVK_ANSI_B;
+        case Key::C: return kVK_ANSI_C;
+        case Key::D: return kVK_ANSI_D;
+        case Key::E: return kVK_ANSI_E;
+        case Key::F: return kVK_ANSI_F;
+        case Key::G: return kVK_ANSI_G;
+        case Key::H: return kVK_ANSI_H;
+        case Key::I: return kVK_ANSI_I;
+        case Key::J: return kVK_ANSI_J;
+        case Key::K: return kVK_ANSI_K;
+        case Key::L: return kVK_ANSI_L;
+        case Key::M: return kVK_ANSI_M;
+        case Key::N: return kVK_ANSI_N;
+        case Key::O: return kVK_ANSI_O;
+        case Key::P: return kVK_ANSI_P;
+        case Key::Q: return kVK_ANSI_Q;
+        case Key::R: return kVK_ANSI_R;
+        case Key::S: return kVK_ANSI_S;
+        case Key::T: return kVK_ANSI_T;
+        case Key::U: return kVK_ANSI_U;
+        case Key::V: return kVK_ANSI_V;
+        case Key::W: return kVK_ANSI_W;
+        case Key::X: return kVK_ANSI_X;
+        case Key::Y: return kVK_ANSI_Y;
+        case Key::Z: return kVK_ANSI_Z;
+        case Key::DIGIT_0: return kVK_ANSI_0;
+        case Key::DIGIT_1: return kVK_ANSI_1;
+        case Key::DIGIT_2: return kVK_ANSI_2;
+        case Key::DIGIT_3: return kVK_ANSI_3;
+        case Key::DIGIT_4: return kVK_ANSI_4;
+        case Key::DIGIT_5: return kVK_ANSI_5;
+        case Key::DIGIT_6: return kVK_ANSI_6;
+        case Key::DIGIT_7: return kVK_ANSI_7;
+        case Key::DIGIT_8: return kVK_ANSI_8;
+        case Key::DIGIT_9: return kVK_ANSI_9;
+        case Key::SPACE: return kVK_Space;
+        case Key::ENTER: return kVK_Return;
+        case Key::ESCAPE: return kVK_Escape;
+        case Key::TAB: return kVK_Tab;
+        case Key::BACKSPACE: return kVK_Delete;
+        case Key::CAPSLOCK: return kVK_CapsLock;
+        case Key::LEFT: return kVK_LeftArrow;
+        case Key::RIGHT: return kVK_RightArrow;
+        case Key::UP: return kVK_UpArrow;
+        case Key::DOWN: return kVK_DownArrow;
+        case Key::F1: return kVK_F1;
+        case Key::F2: return kVK_F2;
+        case Key::F3: return kVK_F3;
+        case Key::F4: return kVK_F4;
+        case Key::F5: return kVK_F5;
+        case Key::F6: return kVK_F6;
+        case Key::F7: return kVK_F7;
+        case Key::F8: return kVK_F8;
+        case Key::F9: return kVK_F9;
+        case Key::F10: return kVK_F10;
+        case Key::F11: return kVK_F11;
+        case Key::F12: return kVK_F12;
+        case Key::MINUS: return kVK_ANSI_Minus;
+        case Key::EQUAL: return kVK_ANSI_Equal;
+        case Key::COMMA: return kVK_ANSI_Comma;
+        case Key::PERIOD: return kVK_ANSI_Period;
+        case Key::SLASH: return kVK_ANSI_Slash;
+        case Key::SEMICOLON: return kVK_ANSI_Semicolon;
+        case Key::APOSTROPHE: return kVK_ANSI_Quote;
+        case Key::GRAVE: return kVK_ANSI_Grave;
+        case Key::L_BRACKET: return kVK_ANSI_LeftBracket;
+        case Key::R_BRACKET: return kVK_ANSI_RightBracket;
+        case Key::BACKSLASH: return kVK_ANSI_Backslash;
+        default: return UINT16_MAX;
+    }
+}
+
 bool isKeyDown(Key k)
 {
-    // TODO: isKeydown Mac Implementation
+    CGKeyCode code = mapKeyToMacKeycode(k);
+    if (code == UINT16_MAX) return false;
+
+    /*Check both combined session state and the HID system state;
+    some macOS versions/ environments give different results from each source,
+    so OR-ing them improves reliability across setups.*/
+    bool down_combined = CGEventSourceKeyState(kCGEventSourceStateCombinedSessionState, code);
+    bool down_hid = CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, code);
+    bool down = down_combined || down_hid;
+
+    return down;
 }
 #endif
