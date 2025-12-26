@@ -133,3 +133,13 @@ bool isKeyDown(Key k) {
 }
 
 #endif
+
+#ifdef __linux__
+// TODO: Make it work on Linux
+bool isKeyDown(Key k) {return false;}
+#endif
+
+#ifdef __APPLE__
+// TODO: Make it work on Mac
+bool isKeyDown(Key k) {return false;}
+#endif
