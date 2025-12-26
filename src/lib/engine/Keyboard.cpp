@@ -56,7 +56,7 @@ short mapKeyToVk(Key k)
         case Key::ESCAPE: return VK_ESCAPE;
         case Key::TAB: return VK_TAB;
         case Key::BACKSPACE: return VK_BACK;
-        case Key::CAPSLOCK: return VK_BACK;
+        case Key::CAPSLOCK: return VK_CAPITAL;
         case Key::OS_KEY: return VK_LWIN;
         case Key::LEFT: return VK_LEFT;
         case Key::RIGHT: return VK_RIGHT;
