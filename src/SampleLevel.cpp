@@ -8,6 +8,7 @@
 // you could make your own level by making a class inherit Level abstract class
 
 std::string keyboardStr = "";
+Vec2 pos = Vec2(50, 10);
 
 void SampleLevel::start(GameLoop &gl) // Runs when the level starts
 {
@@ -18,6 +19,14 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
 {
     // if (isKeyDown(Key::ESCAPE))
     //     gl.stop();
+
+    Vec2 dir = Vec2();
+    if (isKeyDown(Key::W)) dir.y--;
+    if (isKeyDown(Key::A)) dir.x--;
+    if (isKeyDown(Key::S)) dir.y++;
+    if (isKeyDown(Key::D)) dir.x++;
+    dir = dir.normalized();
+    pos += dir * gl.deltaTime() * (isKeyDown(Key::L_SHIFT) ? 48 : 24);
 
     // Use these to test out whether you could push all the keys
     if (isKeyDown(Key::A)) keyboardStr = "A";
@@ -141,6 +150,12 @@ void SampleLevel::render(GameLoop &gl, Gfx &gfx) // Runs after right after updat
     Vec2 v(32 + cos(levelTime * speed) * 10, 20 + sin(levelTime * speed) * 10);
     gfx.drawLine(Vec2(10, 10), v, '#');
     gfx.setPixel(v, 'A');
+
+    gfx.setPixel(pos, 'X');
+    gfx.setPixel(pos-Vec2(1,0), 'X');
+    gfx.setPixel(pos+Vec2(1,0), 'X');
+    gfx.setPixel(pos-Vec2(0,1), 'X');
+    gfx.setPixel(pos+Vec2(0,1), 'X');
 
     std::ostringstream fpsOss;
     fpsOss << (1.0 / gl.deltaTime()) << " FPS";
