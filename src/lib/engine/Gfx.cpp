@@ -6,6 +6,17 @@
 
 #include "../utils/cursor.h"
 
+char cleanOutChar(char c)
+{
+    static constexpr size_t blacklistLen = 4;
+    static constexpr char charBlacklist[blacklistLen] = {'\0','\t','\b','\n'};
+    return ([](char c2) -> bool {
+        for (size_t i = 0; i < blacklistLen; i++)
+            if (c2 == charBlacklist[i]) return true;
+        return false;
+    })(c) ? ' ' : c;
+}
+
 void Gfx::render()
 {
     hideCursor();
@@ -14,7 +25,7 @@ void Gfx::render()
     for (size_t y = 0; y < GFX_HEIGHT; y++)
     {
         for (size_t x = 0; x < GFX_WIDTH; x++)
-            oss << (drawBuffer[x][y] == '\0' ? ' ' : drawBuffer[x][y]) << " ";
+            oss << cleanOutChar(drawBuffer[x][y]) << " ";
         oss << '\n';
     }
     memset(drawBuffer, 0, sizeof(drawBuffer));
