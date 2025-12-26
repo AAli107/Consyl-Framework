@@ -130,7 +130,7 @@ void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is lo
     if (isKeyDown(Key::SLASH)) keyboardStr = "SLASH";
     if (isKeyDown(Key::PRINT_SCREEN)) keyboardStr = "PRINT_SCREEN";
     if (isKeyDown(Key::SCROLL_LOCK)) keyboardStr = "SCROLL_LOCK";
-    if (isKeyDown(Key::PAUSE)) keyboardStr = "PAUSE";
+    if (isKeyDown(Key::PAUSE)) keyboardStr = "PAUSE"; // Can pause console, this one's difficult to test (works on windows tho)
     if (isKeyDown(Key::INSERT)) keyboardStr = "INSERT";
     if (isKeyDown(Key::HOME)) keyboardStr = "HOME";
     if (isKeyDown(Key::PAGE_UP)) keyboardStr = "PAGE_UP";
