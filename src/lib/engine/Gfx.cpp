@@ -210,3 +210,12 @@ void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y
     drawLine(x2, y2, x3, y3, outerC);
     drawLine(x3, y3, x0, y0, outerC);
 }
+
+void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, char c) 
+{ drawQuad(x0, y0, x1, y1, x2, y2, x3, y3, c, c); }
+
+void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, char outerC, char innerC)
+{ drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, outerC, innerC); }
+
+void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, char c)
+{ drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, c, c); }
