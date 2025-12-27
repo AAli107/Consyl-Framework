@@ -34,8 +34,6 @@ std::string Vec3::toString() const
     return oss.str();
 }
 
-Vec3::operator Vec3() { return copy(); }
-
 Vec3::operator Vec2() { return Vec2(x, y); }
 
 Vec3 operator+(const Vec3 &a, const Vec3 &b) { return Vec3(a.x + b.x, a.y + b.y, a.z + b.z); }

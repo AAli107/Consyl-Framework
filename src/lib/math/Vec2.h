@@ -20,7 +20,6 @@ public:
 
     Vec2 copy() const;
     std::string toString() const;
-    operator Vec2();
 };
 
 Vec2 operator+(const Vec2& a, const Vec2& b);
