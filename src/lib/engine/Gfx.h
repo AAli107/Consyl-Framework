@@ -31,6 +31,7 @@ public:
     void drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char c);
     void drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, char outerC, char innerC);
     void drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, char c);
+    void drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, char outerC, char innerC);
 };
 
 #endif
