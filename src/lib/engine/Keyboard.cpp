@@ -206,30 +206,31 @@ static CGKeyCode mapKeyToMacKeycode(Key k)
         case Key::L_BRACKET: return kVK_ANSI_LeftBracket;
         case Key::R_BRACKET: return kVK_ANSI_RightBracket;
         case Key::BACKSLASH: return kVK_ANSI_Backslash;
-        default: return 0;
+        default: return UINT16_MAX; // Cannot use 0 because its the virtual keycode for 'A'
     }
 }
 
-static bool isAppFocused()
-{
+static bool isAppFocused() { //crude implementation for such a barebones program :p
     ProcessSerialNumber psn;
     if (GetFrontProcess(&psn) != noErr)
         return false;
-
-    pid_t frontPid;
-    if (GetProcessPID(&psn, &frontPid) != noErr)
+    CFStringRef frontAppName = nullptr;
+    if (CopyProcessName(&psn, &frontAppName) != noErr)
         return false;
 
-    return frontPid == getpid();
+    bool finCheck =
+        CFStringCompare(frontAppName, CFSTR("Terminal"), 0) == kCFCompareEqualTo;
+    CFRelease(frontAppName);
+    return finCheck;
 }
 
 bool isKeyDown(Key k)
-{
+{   
     if (!isAppFocused())
         return false;
-
+    
     CGKeyCode code = mapKeyToMacKeycode(k);
-    if (code == 0) return false;
+    if (code == UINT16_MAX) return false;
 
     /*Check both combined session state and the HID system state;
     some macOS versions/ environments give different results from each source,

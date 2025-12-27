@@ -39,6 +39,5 @@ bool isKeyDown(Key k);
 #endif
 
 #ifdef __APPLE__
-// TODO: Make it work on Mac
 bool isKeyDown(Key k);
 #endif
