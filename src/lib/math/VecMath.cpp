@@ -53,9 +53,7 @@ bool isInBox3D(const Vec3 &v, const Vec3 boxPos, const Vec3 boxDim)
 { return v.x >= boxPos.x && v.x <= boxDim.x && v.y >= boxPos.y && v.y <= boxDim.y && v.z >= boxPos.z && v.z <= boxDim.z; }
 
 bool isBox3DIntersecting(const Vec3 box0Pos, const Vec3 box0Dim, const Vec3 box1Pos, const Vec3 box1Dim)
-{
-    return false;
-}
+{ return box0Pos.x <= box1Dim.x && box0Dim.x >= box1Pos.x && box0Pos.y <= box1Dim.y && box0Dim.y >= box1Pos.y && box0Pos.z <= box1Dim.z && box0Dim.z >= box1Pos.z; }
 
 bool isInSphere(const Vec3 &v, const Vec3 spherePos, double sphereRadius)
 {
