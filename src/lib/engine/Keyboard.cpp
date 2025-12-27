@@ -239,7 +239,7 @@ static CGKeyCode mapKeyToMacKeycode(Key k)
         case Key::PRINT_SCREEN: return UINT16_MAX;
         case Key::SCROLL_LOCK: return UINT16_MAX;
         case Key::PAUSE: return UINT16_MAX;
-        default: return UINT16_MAX; // Cannot use 0 because its the virtual keycode for 'A'
+        default: return UINT16_MAX;
     }
 }
 
