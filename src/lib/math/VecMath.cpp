@@ -38,9 +38,7 @@ bool isInPolygon(const Vec2& v, const Vec2 poly[], int polyLen)
 }
 
 bool isInBox2D(const Vec2 &v, const Vec2 boxPos, const Vec2 boxDim)
-{
-    return false;
-}
+{ return v.x >= boxPos.x && v.x <= boxDim.x && v.y >= boxPos.y && v.y <= boxDim.y; }
 
 bool isBox2DIntersecting(const Vec2 box0Pos, const Vec2 box0Dim, const Vec2 box1Pos, const Vec2 box1Dim)
 {
