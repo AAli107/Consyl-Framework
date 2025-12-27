@@ -47,9 +47,7 @@ bool isInCircle(const Vec2 &v, const Vec2 circlePos, double circleRadius)
 { return v.distance(circlePos) <= circleRadius; }
 
 bool isCircleIntersecting(const Vec2 circle0Pos, double circle0Radius, const Vec2 circle1Pos, double circle1Radius)
-{
-    return false;
-}
+{ return circle0Pos.distance(circle1Pos) <= circle0Radius + circle1Radius; }
 
 bool isInBox3D(const Vec3 &v, const Vec3 boxPos, const Vec3 dimension)
 {
