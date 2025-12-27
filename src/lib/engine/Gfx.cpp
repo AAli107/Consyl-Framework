@@ -193,3 +193,9 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char outerC, c
     drawLine(x1, y1, x2, y2, outerC);
     drawLine(x2, y2, x0, y0, outerC);
 }
+
+void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char c) { drawTri(x0, y0, x1, y1, x2, y2, c, c); }
+
+void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, char outerC, char innerC) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, outerC, innerC); }
+
+void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, char c) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, c, c); }
