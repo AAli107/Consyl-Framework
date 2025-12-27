@@ -44,9 +44,7 @@ bool isBox2DIntersecting(const Vec2 box0Pos, const Vec2 box0Dim, const Vec2 box1
 { return box0Pos.x <= box1Dim.x && box0Dim.x >= box1Pos.x && box0Pos.y <= box1Dim.y && box0Dim.y >= box1Pos.y; }
 
 bool isInCircle(const Vec2 &v, const Vec2 circlePos, double circleRadius)
-{
-    return false;
-}
+{ return v.distance(circlePos) <= circleRadius; }
 
 bool isCircleIntersecting(const Vec2 circle0Pos, double circle0Radius, const Vec2 circle1Pos, double circle1Radius)
 {
