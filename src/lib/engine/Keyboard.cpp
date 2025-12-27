@@ -206,6 +206,39 @@ static CGKeyCode mapKeyToMacKeycode(Key k)
         case Key::L_BRACKET: return kVK_ANSI_LeftBracket;
         case Key::R_BRACKET: return kVK_ANSI_RightBracket;
         case Key::BACKSLASH: return kVK_ANSI_Backslash;
+        case Key::L_SHIFT:
+        case Key::R_SHIFT: return kVK_Shift;
+        case Key::L_CTRL:
+        case Key::R_CTRL: return kVK_Control;
+        case Key::L_ALT:
+        case Key::R_ALT: return kVK_Option;
+        case Key::OS_KEY: return kVK_Command;
+        case Key::INSERT: return kVK_Help;//closest mac equivalent
+        case Key::HOME: return kVK_Home;
+        case Key::END: return kVK_End;
+        case Key::PAGE_UP: return kVK_PageUp;
+        case Key::PAGE_DOWN: return kVK_PageDown;
+        case Key::DELETE: return kVK_ForwardDelete;// NOT Backspace
+        case Key::NUM_0: return kVK_ANSI_Keypad0;
+        case Key::NUM_1: return kVK_ANSI_Keypad1;
+        case Key::NUM_2: return kVK_ANSI_Keypad2;
+        case Key::NUM_3: return kVK_ANSI_Keypad3;
+        case Key::NUM_4: return kVK_ANSI_Keypad4;
+        case Key::NUM_5: return kVK_ANSI_Keypad5;
+        case Key::NUM_6: return kVK_ANSI_Keypad6;
+        case Key::NUM_7: return kVK_ANSI_Keypad7;
+        case Key::NUM_8: return kVK_ANSI_Keypad8;
+        case Key::NUM_9: return kVK_ANSI_Keypad9;
+        case Key::NUM_ADD: return kVK_ANSI_KeypadPlus;
+        case Key::NUM_SUBTRACT: return kVK_ANSI_KeypadMinus;
+        case Key::NUM_MULTIPLY: return kVK_ANSI_KeypadMultiply;
+        case Key::NUM_DIVIDE: return kVK_ANSI_KeypadDivide;
+        case Key::NUM_PERIOD: return kVK_ANSI_KeypadDecimal;
+        // No Mac Equivalents; //
+        case Key::NUM_LOCK: return UINT16_MAX;
+        case Key::PRINT_SCREEN: return UINT16_MAX;
+        case Key::SCROLL_LOCK: return UINT16_MAX;
+        case Key::PAUSE: return UINT16_MAX;
         default: return UINT16_MAX; // Cannot use 0 because its the virtual keycode for 'A'
     }
 }
