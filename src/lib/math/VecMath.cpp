@@ -39,31 +39,35 @@ bool isInPolygon(const Vec2& v, const Vec2 poly[], int polyLen)
 
 bool isInBox2D(const Vec2 &v, const Vec2 boxPos, const Vec2 boxDim)
 {
+    if (boxDim.x < 0 || boxDim.y < 0) return false;
     Vec2 boxEnd = boxPos + boxDim;
     return v.x >= boxPos.x && v.x <= boxEnd.x && v.y >= boxPos.y && v.y <= boxEnd.y; 
 }
 
 bool isBox2DIntersecting(const Vec2 box0Pos, const Vec2 box0Dim, const Vec2 box1Pos, const Vec2 box1Dim)
 {
+    if (box0Dim.x < 0 || box0Dim.y < 0 || box1Dim.x < 0 || box1Dim.y < 0) return false;
     Vec2 box0End = box0Pos + box0Dim;
     Vec2 box1End = box1Pos + box1Dim;
     return box0Pos.x <= box1End.x && box0End.x >= box1Pos.x && box0Pos.y <= box1End.y && box0End.y >= box1Pos.y; 
 }
 
 bool isInCircle(const Vec2 &v, const Vec2 circlePos, double circleRadius)
-{ return v.distance(circlePos) <= circleRadius; }
+{ return circleRadius < 0 ? false : v.distance(circlePos) <= circleRadius; }
 
 bool isCircleIntersecting(const Vec2 circle0Pos, double circle0Radius, const Vec2 circle1Pos, double circle1Radius)
-{ return circle0Pos.distance(circle1Pos) <= circle0Radius + circle1Radius; }
+{ return circle0Radius < 0 || circle1Radius < 0 ? false : circle0Pos.distance(circle1Pos) <= circle0Radius + circle1Radius; }
 
 bool isInBox3D(const Vec3 &v, const Vec3 boxPos, const Vec3 boxDim)
 {
+    if (boxDim.x < 0 || boxDim.y < 0 || boxDim.z < 0) return false;
     Vec3 boxEnd = boxPos + boxDim;
     return v.x >= boxPos.x && v.x <= boxEnd.x && v.y >= boxPos.y && v.y <= boxEnd.y && v.z >= boxPos.z && v.z <= boxEnd.z; 
 }
 
 bool isBox3DIntersecting(const Vec3 box0Pos, const Vec3 box0Dim, const Vec3 box1Pos, const Vec3 box1Dim)
 {
+    if (box0Dim.x < 0 || box0Dim.y < 0 || box0Dim.z < 0 || box1Dim.x < 0 || box1Dim.y < 0 || box1Dim.z < 0) return false;
     Vec3 box0End = box0Pos + box0Dim;
     Vec3 box1End = box1Pos + box1Dim;
     return box0Pos.x <= box1End.x && box0End.x >= box1Pos.x && 
@@ -72,7 +76,7 @@ bool isBox3DIntersecting(const Vec3 box0Pos, const Vec3 box0Dim, const Vec3 box1
 }
 
 bool isInSphere(const Vec3 &v, const Vec3 spherePos, double sphereRadius)
-{ return v.distance(spherePos) <= sphereRadius; }
+{ return sphereRadius < 0 ? false : v.distance(spherePos) <= sphereRadius; }
 
 bool isSphereIntersecting(const Vec3 sphere0Pos, double sphere0Radius, const Vec3 sphere1Pos, double sphere1Radius)
-{ return sphere0Pos.distance(sphere1Pos) <= sphere0Radius + sphere1Radius; }
+{ return sphere0Radius < 0 || sphere1Radius < 0 ? false : sphere0Pos.distance(sphere1Pos) <= sphere0Radius + sphere1Radius; }
