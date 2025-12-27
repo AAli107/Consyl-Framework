@@ -59,6 +59,4 @@ bool isInSphere(const Vec3 &v, const Vec3 spherePos, double sphereRadius)
 { return v.distance(spherePos) <= sphereRadius; }
 
 bool isSphereIntersecting(const Vec3 sphere0Pos, double sphere0Radius, const Vec3 sphere1Pos, double sphere1Radius)
-{
-    return false;
-}
+{ return sphere0Pos.distance(sphere1Pos) <= sphere0Radius + sphere1Radius; }
