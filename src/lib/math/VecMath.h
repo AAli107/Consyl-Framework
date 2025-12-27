@@ -25,14 +25,14 @@ Vec2 screenToNormalizedSpace(Vec2 v, int screenWidth, int screenHeight);
 Vec2 normalizedToScreenSpace(Vec2 v, int screenWidth, int screenHeight);
 Vec3 rotate2D(Vec3 v, double angle);
 Vec3 Cross(const Vec3 v1, const Vec3 v2);
-bool isInPolygon(const Vec2& v, const Vec2 poly[], int polyLen);
-bool isInBox2D(const Vec2& v, const Vec2 boxPos, const Vec2 boxDim);
+bool isInPolygon(const Vec2& point, const Vec2 poly[], int polyLen);
+bool isInBox2D(const Vec2& point, const Vec2 boxPos, const Vec2 boxDim);
 bool isBox2DIntersecting(const Vec2 box0Pos, const Vec2 box0Dim, const Vec2 box1Pos, const Vec2 box1Dim);
-bool isInCircle(const Vec2& v, const Vec2 circlePos, double circleRadius);
+bool isInCircle(const Vec2& point, const Vec2 circlePos, double circleRadius);
 bool isCircleIntersecting(const Vec2 circle0Pos, double circle0Radius, const Vec2 circle1Pos, double circle1Radius);
-bool isInBox3D(const Vec3& v, const Vec3 boxPos, const Vec3 boxDim);
+bool isInBox3D(const Vec3& point, const Vec3 boxPos, const Vec3 boxDim);
 bool isBox3DIntersecting(const Vec3 box0Pos, const Vec3 box0Dim, const Vec3 box1Pos, const Vec3 box1Dim);
-bool isInSphere(const Vec3& v, const Vec3 spherePos, double sphereRadius);
+bool isInSphere(const Vec3& point, const Vec3 spherePos, double sphereRadius);
 bool isSphereIntersecting(const Vec3 sphere0Pos, double sphere0Radius, const Vec3 sphere1Pos, double sphere1Radius);
 
 #endif
