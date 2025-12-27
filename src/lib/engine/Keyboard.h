@@ -28,16 +28,4 @@ enum class Key : uint16_t {
     COUNT // This is just in case if we wanna get the length of this enum :P
 };
 
-
-#ifdef _WIN32
 bool isKeyDown(Key k);
-#endif
-
-#ifdef __linux__
-// TODO: Make it work on Linux
-bool isKeyDown(Key k);
-#endif
-
-#ifdef __APPLE__
-bool isKeyDown(Key k);
-#endif
