@@ -206,22 +206,37 @@ static CGKeyCode mapKeyToMacKeycode(Key k)
         case Key::L_BRACKET: return kVK_ANSI_LeftBracket;
         case Key::R_BRACKET: return kVK_ANSI_RightBracket;
         case Key::BACKSLASH: return kVK_ANSI_Backslash;
-        default: return UINT16_MAX;
+        default: return 0;
     }
+}
+
+static bool isAppFocused()
+{
+    ProcessSerialNumber psn;
+    if (GetFrontProcess(&psn) != noErr)
+        return false;
+
+    pid_t frontPid;
+    if (GetProcessPID(&psn, &frontPid) != noErr)
+        return false;
+
+    return frontPid == getpid();
 }
 
 bool isKeyDown(Key k)
 {
+    if (!isAppFocused())
+        return false;
+
     CGKeyCode code = mapKeyToMacKeycode(k);
-    if (code == UINT16_MAX) return false;
+    if (code == 0) return false;
 
     /*Check both combined session state and the HID system state;
     some macOS versions/ environments give different results from each source,
     so OR-ing them improves reliability across setups.*/
     bool down_combined = CGEventSourceKeyState(kCGEventSourceStateCombinedSessionState, code);
     bool down_hid = CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, code);
-    bool down = down_combined || down_hid;
-
-    return down;
+    
+    return down_combined || down_hid;
 }
 #endif
