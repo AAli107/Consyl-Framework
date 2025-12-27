@@ -110,7 +110,7 @@ short mapKeyToVk(Key k)
         case Key::DELETE: return VK_DELETE;
         case Key::END: return VK_END;
         case Key::PAGE_DOWN: return VK_NEXT;
-        default: return 0;
+        default: return UINT16_MAX;
     }
 }
 
