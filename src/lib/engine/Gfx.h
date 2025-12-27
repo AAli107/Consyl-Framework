@@ -27,6 +27,7 @@ public:
     void drawCircle(int x, int y, int radius, char c);
     void drawCircle(const Vec2 v, int radius, char outerC, char innerC);
     void drawCircle(const Vec2 v, int radius, char c);
+    void drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char outerC, char innerC);
 };
 
 #endif

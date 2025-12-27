@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <stdint.h>
+#include <algorithm>
 
 #include "../utils/cursor.h"
 
@@ -149,3 +151,45 @@ void Gfx::drawCircle(int x, int y, int radius, char c) { drawCircle(x, y, radius
 void Gfx::drawCircle(const Vec2 v, int radius, char outerC, char innerC) { drawCircle((int)v.x, (int)v.y, radius, outerC, innerC); }
 
 void Gfx::drawCircle(const Vec2 v, int radius, char c) { drawCircle((int)v.x, (int)v.y, radius, c, c); }
+
+void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char outerC, char innerC)
+{
+    static auto edgeFunc = [](int x0, int y0, int x1, int y1, int x, int y) -> int64_t 
+    { return int64_t(x - x0) * int64_t(y1 - y0) - int64_t(y - y0) * int64_t(x1 - x0); };
+
+    int minX = std::min({ x0, x1, x2 });
+    int maxX = std::max({ x0, x1, x2 });
+    int minY = std::min({ y0, y1, y2 });
+    int maxY = std::max({ y0, y1, y2 });
+
+    if (minX < 0) minX = 0;
+    if (minY < 0) minY = 0;
+    if (maxX >= GFX_WIDTH) maxX = GFX_WIDTH - 1;
+    if (maxY >= GFX_HEIGHT) maxY = GFX_HEIGHT - 1;
+
+    int64_t area = edgeFunc(x0, y0, x1, y1, x2, y2);
+    if (area == 0) {
+        drawLine(x0, y0, x1, y1, outerC);
+        drawLine(x1, y1, x2, y2, outerC);
+        drawLine(x2, y2, x0, y0, outerC);
+        return;
+    }
+
+    for (int y = minY; y <= maxY; ++y) {
+        for (int x = minX; x <= maxX; ++x) {
+            int64_t w0 = edgeFunc(x1, y1, x2, y2, x, y);
+            int64_t w1 = edgeFunc(x2, y2, x0, y0, x, y);
+            int64_t w2 = edgeFunc(x0, y0, x1, y1, x, y);
+
+            if ((w0 == 0 || ((w0 > 0) == (area > 0))) &&
+                (w1 == 0 || ((w1 > 0) == (area > 0))) &&
+                (w2 == 0 || ((w2 > 0) == (area > 0)))) {
+                setPixel(x, y, innerC);
+            }
+        }
+    }
+
+    drawLine(x0, y0, x1, y1, outerC);
+    drawLine(x1, y1, x2, y2, outerC);
+    drawLine(x2, y2, x0, y0, outerC);
+}
