@@ -37,7 +37,7 @@ bool isInPolygon(const Vec2& v, const Vec2 poly[], int polyLen)
     return windingN != 0;
 }
 
-bool isInBox2D(const Vec2 &v, const Vec2 boxPos, const Vec2 dimension)
+bool isInBox2D(const Vec2 &v, const Vec2 boxPos, const Vec2 boxDim)
 {
     return false;
 }

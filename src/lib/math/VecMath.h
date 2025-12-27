@@ -26,7 +26,7 @@ Vec2 normalizedToScreenSpace(Vec2 v, int screenWidth, int screenHeight);
 Vec3 rotate2D(Vec3 v, double angle);
 Vec3 Cross(const Vec3 v1, const Vec3 v2);
 bool isInPolygon(const Vec2& v, const Vec2 poly[], int polyLen);
-bool isInBox2D(const Vec2& v, const Vec2 boxPos, const Vec2 dimension);
+bool isInBox2D(const Vec2& v, const Vec2 boxPos, const Vec2 boxDim);
 bool isBox2DIntersecting(const Vec2 box0Pos, const Vec2 box0Dim, const Vec2 box1Pos, const Vec2 box1Dim);
 bool isInCircle(const Vec2& v, const Vec2 circlePos, double circleRadius);
 bool isCircleIntersecting(const Vec2 circle0Pos, double circle0Radius, const Vec2 circle1Pos, double circle1Radius);
