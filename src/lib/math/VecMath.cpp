@@ -38,10 +38,17 @@ bool isInPolygon(const Vec2& v, const Vec2 poly[], int polyLen)
 }
 
 bool isInBox2D(const Vec2 &v, const Vec2 boxPos, const Vec2 boxDim)
-{ return v.x >= boxPos.x && v.x <= boxDim.x && v.y >= boxPos.y && v.y <= boxDim.y; }
+{
+    Vec2 boxEnd = boxPos + boxDim;
+    return v.x >= boxPos.x && v.x <= boxEnd.x && v.y >= boxPos.y && v.y <= boxEnd.y; 
+}
 
 bool isBox2DIntersecting(const Vec2 box0Pos, const Vec2 box0Dim, const Vec2 box1Pos, const Vec2 box1Dim)
-{ return box0Pos.x <= box1Dim.x && box0Dim.x >= box1Pos.x && box0Pos.y <= box1Dim.y && box0Dim.y >= box1Pos.y; }
+{
+    Vec2 box0End = box0Pos + box0Dim;
+    Vec2 box1End = box1Pos + box1Dim;
+    return box0Pos.x <= box1End.x && box0End.x >= box1Pos.x && box0Pos.y <= box1End.y && box0End.y >= box1Pos.y; 
+}
 
 bool isInCircle(const Vec2 &v, const Vec2 circlePos, double circleRadius)
 { return v.distance(circlePos) <= circleRadius; }
@@ -50,10 +57,19 @@ bool isCircleIntersecting(const Vec2 circle0Pos, double circle0Radius, const Vec
 { return circle0Pos.distance(circle1Pos) <= circle0Radius + circle1Radius; }
 
 bool isInBox3D(const Vec3 &v, const Vec3 boxPos, const Vec3 boxDim)
-{ return v.x >= boxPos.x && v.x <= boxDim.x && v.y >= boxPos.y && v.y <= boxDim.y && v.z >= boxPos.z && v.z <= boxDim.z; }
+{
+    Vec3 boxEnd = boxPos + boxDim;
+    return v.x >= boxPos.x && v.x <= boxEnd.x && v.y >= boxPos.y && v.y <= boxEnd.y && v.z >= boxPos.z && v.z <= boxEnd.z; 
+}
 
 bool isBox3DIntersecting(const Vec3 box0Pos, const Vec3 box0Dim, const Vec3 box1Pos, const Vec3 box1Dim)
-{ return box0Pos.x <= box1Dim.x && box0Dim.x >= box1Pos.x && box0Pos.y <= box1Dim.y && box0Dim.y >= box1Pos.y && box0Pos.z <= box1Dim.z && box0Dim.z >= box1Pos.z; }
+{
+    Vec3 box0End = box0Pos + box0Dim;
+    Vec3 box1End = box1Pos + box1Dim;
+    return box0Pos.x <= box1End.x && box0End.x >= box1Pos.x && 
+        box0Pos.y <= box1End.y && box0End.y >= box1Pos.y && 
+        box0Pos.z <= box1End.z && box0End.z >= box1Pos.z; 
+}
 
 bool isInSphere(const Vec3 &v, const Vec3 spherePos, double sphereRadius)
 { return v.distance(spherePos) <= sphereRadius; }
