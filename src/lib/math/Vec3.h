@@ -27,6 +27,7 @@ public:
     Vec3 copy() const;
     std::string toString() const;
     operator Vec2();
+    operator std::string();
 };
 
 Vec3 operator+(const Vec3& a, const Vec3& b);
