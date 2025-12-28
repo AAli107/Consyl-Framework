@@ -22,6 +22,7 @@ public:
     double dot(Vec3 b) const;
     double distance(Vec3 b) const;
     Vec3 reflect(Vec3 normal) const;
+    Vec3 cross(const Vec3& b);
 
     Vec3 copy() const;
     std::string toString() const;
