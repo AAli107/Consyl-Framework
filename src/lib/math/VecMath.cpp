@@ -13,9 +13,6 @@ Vec2 normalizedToScreenSpace(const Vec2& v, int screenWidth, int screenHeight)
 Vec3 rotate2D(const Vec3& v, double angle)
 { double c = std::cos(angle); double s = std::sin(angle); return Vec3(c * v.x - s * v.y, s * v.x + c * v.y, v.z); }
 
-Vec3 Cross(const Vec3& v1, const Vec3& v2)
-{ return Vec3( v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x ); }
-
 bool isInPolygon(const Vec2& point, const Vec2 poly[], int polyLen)
 {
     if (polyLen < 3) return false;
