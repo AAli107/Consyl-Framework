@@ -19,4 +19,5 @@ void SampleLevel::render(GameLoop &gl, Gfx &gfx) // Runs after right after updat
 
 void SampleLevel::end(GameLoop &gl) // Runs when level ends
 {
+    
 }
