@@ -25,6 +25,9 @@ double Vec3::distance(Vec3 b) const { return (*this - b).length(); }
 
 Vec3 Vec3::reflect(Vec3 normal) const { return Vec3(*this - (normal * dot(normal) * 2)); }
 
+Vec3 Vec3::cross(const Vec3 &b)
+{ return Vec3( y * b.z - z * b.y, z * b.x - x * b.z, x * b.y - y * b.x ); }
+
 Vec3 Vec3::copy() const { return Vec3(x, y, z); }
 
 std::string Vec3::toString() const

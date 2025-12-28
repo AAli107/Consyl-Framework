@@ -24,7 +24,6 @@ Vec2 project3D(const Vec3& v);
 Vec2 screenToNormalizedSpace(const Vec2& v, int screenWidth, int screenHeight);
 Vec2 normalizedToScreenSpace(const Vec2& v, int screenWidth, int screenHeight);
 Vec3 rotate2D(const Vec3& v, double angle);
-Vec3 Cross(const Vec3& v1, const Vec3& v2);
 bool isInPolygon(const Vec2& point, const Vec2 poly[], int polyLen);
 bool isInBox2D(const Vec2& point, const Vec2& boxPos, const Vec2& boxDim);
 bool isBox2DIntersecting(const Vec2& box0Pos, const Vec2& box0Dim, const Vec2& box1Pos, const Vec2& box1Dim);
