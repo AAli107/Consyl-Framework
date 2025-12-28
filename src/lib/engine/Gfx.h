@@ -19,8 +19,8 @@ public:
     void drawRect(int x, int y, int w, int h, char c);
     void drawRect(const Vec2 v, const Vec2 d, char outerC, char innerC);
     void drawRect(const Vec2 v, const Vec2 d, char c);
-    void drawText(int x, int y, std::string str);
-    void drawText(const Vec2 v, std::string str);
+    void drawText(int x, int y, const std::string str);
+    void drawText(const Vec2 v, const std::string str);
     void drawLine(int x0, int y0, int x1, int y1, char c);
     void drawLine(const Vec2 v0, const Vec2 v1, char c);
     void drawCircle(int x, int y, int radius, char outerC, char innerC);

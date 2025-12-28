@@ -69,33 +69,33 @@ void Gfx::drawRect(const Vec2 v, const Vec2 d, char outerC, char innerC) { drawR
 
 void Gfx::drawRect(const Vec2 v, const Vec2 d, char c) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c); }
 
-void Gfx::drawText(int x, int y, std::string str)
+void Gfx::drawText(int x, int y, const std::string str)
 {
     int charX = x;
     int charY = y;
-    for (size_t i = 0; i < str.length(); i++)
-    {
-        if (charX < 0 || charX >= GFX_WIDTH || charY < 0 || charY >= GFX_HEIGHT) continue;
 
-        switch (str[i])
+    for (char c : str)
+    {
+        switch (c)
         {
-        case '\0':
-            return;
         case '\n':
-            charX = x-1;
+            charX = x;
             charY++;
-            break;
+            continue;
+
         case '\t':
-            charX += 4;
-            break;
-        default:
-            setPixel(charX, charY, str[i]);
-            charX++;
-            break;
+            charX = ((charX / 4) + 1) * 4;
+            continue;
         }
 
+        if (charX >= 0 && charX < GFX_WIDTH &&
+            charY >= 0 && charY < GFX_HEIGHT)
+        {
+            setPixel(charX, charY, c);
+        }
+
+        charX++;
     }
-    
 }
 
 void Gfx::drawText(const Vec2 v, std::string str) { drawText((int)v.x, (int)v.y, str); }
