@@ -1,4 +1,5 @@
 #ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 
 #include "../math/VecMath.h"
 #include "../math/Transform.h"
