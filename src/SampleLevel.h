@@ -1,5 +1,5 @@
-#ifndef LEVEL1_H
-#define LEVEL1_H
+#ifndef SAMPLELEVEL_H
+#define SAMPLELEVEL_H
 
 #include "lib/engine/Level.h"
 #include "lib/engine/GameLoop.h"
