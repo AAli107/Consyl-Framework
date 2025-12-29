@@ -28,6 +28,16 @@ void GameObjectTest_Level::update(GameLoop &gl) // Runs every frame while the le
     if (isKeyDown(Key::ENTER) && !gl.doesGameObjectExist("Game Object 2")) {
         gl.spawn("Game Object 2", std::make_unique<GameObject>(), Vec3(23, 10));
     }
+
+    if (isKeyDown(Key::EQUAL))
+        if (auto obj = gl.getGameObjectByName("Game Object 1"))
+            if (auto c = obj->getComponent<DummyComponent>())
+                c->speed++;
+    
+    if (isKeyDown(Key::MINUS))
+        if (auto obj = gl.getGameObjectByName("Game Object 1"))
+            if (auto c = obj->getComponent<DummyComponent>())
+                c->speed--;
 }
 
 void GameObjectTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
@@ -41,6 +51,15 @@ void GameObjectTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right af
     if (gameObj2)
         gfx.drawText(gameObj2->transform.position + Vec3(2, 2), gl.getNameOfGameObject(gameObj2));
 
+    auto gameObj1 = gl.getGameObjectByName("Game Object 1");
+    if (gameObj1) {
+        auto dummyComp = gameObj1->getComponent<DummyComponent>();
+        if (dummyComp) {
+            std::ostringstream oss;
+            oss << "Speed: " << dummyComp->speed;
+            gfx.drawText(gameObj1->transform.position + Vec3(2, 2), oss.str());
+        }
+    }
     std::ostringstream oss;
     oss << "Game object count: " << gl.gameObjectCount();
     gfx.drawText(0,0, oss.str());
