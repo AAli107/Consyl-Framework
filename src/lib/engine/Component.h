@@ -1,8 +1,9 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include "GameObject.h"
-#include "GameLoop.h"
+class GameObject;
+class GameLoop;
+class Gfx;
 
 class Component {
 private:

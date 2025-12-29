@@ -3,6 +3,8 @@
 
 #include "../math/VecMath.h"
 #include "../math/Transform.h"
+#include "Component.h"
+
 #include <vector>
 #include <concepts>
 #include <memory>
@@ -19,7 +21,7 @@ public:
     bool isEnabled() const noexcept { return enabled; }
     void setEnabled(bool value) noexcept { enabled = value; }
     template <std::derived_from<Component> T, typename... Args> T& addComponent(Args&&... args);
-    template <std::derived_from<Component> T> T* GameObject::getComponent() noexcept;
+    template <std::derived_from<Component> T> T* getComponent() noexcept;
 };
 
 template <std::derived_from<Component> T, typename... Args>
