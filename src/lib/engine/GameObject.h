@@ -15,6 +15,10 @@ class GameObject {
 private:
     bool enabled = true;
     std::vector<std::unique_ptr<Component>> components;
+
+    void update(GameLoop& gl);
+    void tick(GameLoop& gl);
+    void render(GameLoop& gl, Gfx& gfx);
 public:
     Transform transform;
 
@@ -22,6 +26,8 @@ public:
     void setEnabled(bool value) noexcept { enabled = value; }
     template <std::derived_from<Component> T, typename... Args> T& addComponent(Args&&... args);
     template <std::derived_from<Component> T> T* getComponent() noexcept;
+
+    friend class GameLoop;
 };
 
 template <std::derived_from<Component> T, typename... Args>
