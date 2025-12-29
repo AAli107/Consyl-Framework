@@ -11,5 +11,4 @@ struct World
     std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 };
 
-
 #endif
