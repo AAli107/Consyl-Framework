@@ -130,3 +130,8 @@ std::string GameLoop::getNameOfGameObject(GameObject *ptr)
     }
     return "";
 }
+
+size_t GameLoop::gameObjectCount() const
+{ 
+    return world.gameObjects.size();
+}

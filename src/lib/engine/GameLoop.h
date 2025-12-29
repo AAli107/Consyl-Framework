@@ -35,6 +35,8 @@ public:
     GameObject* getGameObjectByName(const std::string& name);
     bool doesGameObjectExist(const std::string& name);
     std::string getNameOfGameObject(GameObject* ptr);
+    size_t gameObjectCount() const;
+
 };
 
 #endif
