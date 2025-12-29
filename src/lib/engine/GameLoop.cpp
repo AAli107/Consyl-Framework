@@ -22,7 +22,7 @@ void GameLoop::run()
             }
 
             for (auto& kv : world.gameObjects) {
-                if (!kv.second) continue;
+                if (!kv.second || !kv.second->enabled) continue;
                 kv.second->update(*this);
                 kv.second->tick(*this);
                 kv.second->render(*this, gfx);
