@@ -11,7 +11,7 @@
 
 class Component;
 
-class GameObject {
+struct GameObject {
 private:
     bool enabled = true;
     std::vector<std::unique_ptr<Component>> components;
