@@ -135,3 +135,14 @@ size_t GameLoop::gameObjectCount() const
 { 
     return world.gameObjects.size();
 }
+
+std::vector<GameObject*> GameLoop::getGameObjects() const
+{
+    std::vector<GameObject*> result;
+    result.reserve(world.gameObjects.size());
+
+    for (const auto& [key, obj] : world.gameObjects)
+        result.push_back(obj.get());
+
+    return result;
+}
