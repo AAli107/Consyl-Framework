@@ -24,16 +24,16 @@ public:
 
     bool isEnabled() const noexcept { return enabled; }
     void setEnabled(bool value) noexcept { enabled = value; }
-    template <std::derived_from<Component> T, typename... Args> T& addComponent(Args&&... args);
+    template <std::derived_from<Component> T> T& addComponent();
     template <std::derived_from<Component> T> T* getComponent() noexcept;
 
     friend class GameLoop;
 };
 
-template <std::derived_from<Component> T, typename... Args>
-T &GameObject::addComponent(Args &&...args)
+template <std::derived_from<Component> T>
+T &GameObject::addComponent()
 {
-    auto comp = std::make_unique<T>(std::forward<Args>(args)...);
+    auto comp = std::make_unique<T>();
     comp->setParent(*this);
     T& ref = *comp;
     components.push_back(std::move(comp));
