@@ -21,6 +21,13 @@ void GameLoop::run()
                 currentLevel->render(*this, gfx);
             }
 
+            for (auto& kv : world.gameObjects) {
+                if (!kv.second) continue;
+                kv.second->update(*this);
+                kv.second->tick(*this);
+                kv.second->render(*this, gfx);
+            }
+
             gfx.render();
             if (showStats)
                 std::cout << (1.0 / deltaT) << " FPS         \n" << (deltaT * 1000.0) << " ms         ";
