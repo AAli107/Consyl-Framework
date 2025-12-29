@@ -19,8 +19,26 @@ public:
     bool isEnabled() const noexcept { return enabled; }
     void setEnabled(bool value) noexcept { enabled = value; }
     template <std::derived_from<Component> T, typename... Args> T& addComponent(Args&&... args);
-    template <std::derived_from<Component> T> T& getComponent();
-    template <std::derived_from<Component> T> bool tryGetComponent(T& component);
+    template <std::derived_from<Component> T> T* GameObject::getComponent() noexcept;
 };
+
+template <std::derived_from<Component> T, typename... Args>
+T &GameObject::addComponent(Args &&...args)
+{
+    auto comp = std::make_unique<T>(std::forward<Args>(args)...);
+    comp->setParent(*this);
+    T& ref = *comp;
+    components.push_back(std::move(comp));
+    return ref;
+}
+
+template <std::derived_from<Component> T>
+T* GameObject::getComponent() noexcept
+{
+    for (const auto& c : components)
+        if (auto* ptr = dynamic_cast<T*>(c.get()))
+            return ptr;
+    return nullptr;
+}
 
 #endif
