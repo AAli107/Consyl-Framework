@@ -18,13 +18,14 @@ void GameLoop::run()
             
             if (currentLevel) {
                 currentLevel->update(*this);
+                // TODO: Add a fixed update `tick()` function for levels
                 currentLevel->render(*this, gfx);
             }
 
             for (auto& kv : world.gameObjects) {
                 if (!kv.second || !kv.second->enabled) continue;
                 kv.second->update(*this);
-                kv.second->tick(*this);
+                kv.second->tick(*this); // TODO: Make tick() run at fixed amount of time
                 kv.second->render(*this, gfx);
             }
 
