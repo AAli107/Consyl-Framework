@@ -27,15 +27,15 @@ void GameLoop::run()
             }
             
             // tick update phase (runs fixed number of times per second)
-            fixedUpdateAccumulatedTime += deltaT;
-            while (fixedUpdateAccumulatedTime >= targetFrameTime)
+            tickAccumulatedTime += deltaT;
+            while (tickAccumulatedTime >= targetFrameTime)
             {
                 if (currentLevel) currentLevel->tick(*this);
                 for (auto& kv : world.gameObjects) {
                     if (!kv.second || !kv.second->enabled) continue;
                     kv.second->tick(*this);
                 }    
-                fixedUpdateAccumulatedTime -= targetFrameTime;
+                tickAccumulatedTime -= targetFrameTime;
             }
             
             // Rendering phase

@@ -18,7 +18,7 @@ private:
     Gfx gfx = Gfx();
     Level* currentLevel = nullptr;
     World world{};
-    double fixedUpdateAccumulatedTime = 0.0;
+    double tickAccumulatedTime = 0.0;
     int tickRate;
     int targetFrameTime;
 public:
