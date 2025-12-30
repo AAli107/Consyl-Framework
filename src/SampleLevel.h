@@ -8,6 +8,7 @@ class SampleLevel : public Level {
 public:
     void start(GameLoop& gl) override;
     void update(GameLoop& gl) override;
+    void tick(GameLoop& gl) override;
     void render(GameLoop& gl, Gfx& gfx) override;
     void end(GameLoop& gl) override;
 };

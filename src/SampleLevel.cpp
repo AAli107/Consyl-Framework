@@ -7,7 +7,12 @@ void SampleLevel::start(GameLoop &gl) // Runs when the level starts
     
 }
 
-void SampleLevel::update(GameLoop &gl) // Runs every frame while the level is loaded
+void SampleLevel::update(GameLoop &gl) // Runs every frame while this level is loaded
+{
+    
+}
+
+void SampleLevel::tick(GameLoop &gl) // Runs fixed number of times per second while this level is loaded
 {
     
 }
