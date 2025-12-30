@@ -1,12 +1,15 @@
 #include <iostream>
 #include <chrono>
+#include <assert.h>
 
 #include "GameLoop.h"
 #include "Level.h"
 #include "../utils/sleep.h"
 
-GameLoop::GameLoop(Level* level) {
+GameLoop::GameLoop(Level* level, int tickRate) {
+    assert(tickRate > 0);
     openLevel(level);
+    setTickRate(tickRate);
 }
 
 void GameLoop::run()
@@ -69,7 +72,18 @@ void GameLoop::openLevel(Level* level)
 
 double GameLoop::deltaTime() { return deltaT; }
 
+double GameLoop::fixedDeltaTime() { return targetFrameTime; }
+
 double GameLoop::timeRunning() { return timeSinceStart; }
+
+void GameLoop::setTickRate(int tickRate)
+{
+    if (tickRate <= 0) return;
+    this->tickRate = tickRate;
+    targetFrameTime = 1.0 / tickRate;
+}
+
+double GameLoop::getTickRate() { return tickRate; }
 
 GameObject* GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameObject)
 {
