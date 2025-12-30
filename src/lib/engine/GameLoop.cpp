@@ -20,8 +20,7 @@ void GameLoop::run()
             auto startTime = std::chrono::high_resolution_clock::now();
             
             // Per frame update phase
-            if (currentLevel)
-                currentLevel->update(*this);
+            if (currentLevel) currentLevel->update(*this);
             for (auto& kv : world.gameObjects) {
                 if (!kv.second || !kv.second->enabled) continue;
                 kv.second->update(*this);
@@ -31,8 +30,7 @@ void GameLoop::run()
             fixedUpdateAccumulatedTime += deltaT;
             while (fixedUpdateAccumulatedTime >= targetFrameTime)
             {
-                if (currentLevel)
-                    currentLevel->tick(*this);
+                if (currentLevel) currentLevel->tick(*this);
                 for (auto& kv : world.gameObjects) {
                     if (!kv.second || !kv.second->enabled) continue;
                     kv.second->tick(*this);
@@ -41,13 +39,11 @@ void GameLoop::run()
             }
             
             // Rendering phase
-            if (currentLevel)
-                currentLevel->render(*this, gfx);
+            if (currentLevel) currentLevel->render(*this, gfx);
             for (auto& kv : world.gameObjects) {
                 if (!kv.second || !kv.second->enabled) continue;
                 kv.second->render(*this, gfx);
             }
-
             gfx.render();
             if (showStats)
                 std::cout << (1.0 / deltaT) << " FPS         \n" << (deltaT * 1000.0) << " ms         ";
