@@ -27,14 +27,19 @@ void GameLoop::run()
                 kv.second->update(*this);
             }
             
-            // TODO: Make this code run fixed number of times per second
-            if (currentLevel)
-                currentLevel->tick(*this);
-            for (auto& kv : world.gameObjects) {
-                if (!kv.second || !kv.second->enabled) continue;
-                kv.second->tick(*this);
+            // tick update phase (runs fixed number of times per second)
+            fixedUpdateAccumulatedTime += deltaT;
+            while (fixedUpdateAccumulatedTime >= targetFrameTime)
+            {
+                if (currentLevel)
+                    currentLevel->tick(*this);
+                for (auto& kv : world.gameObjects) {
+                    if (!kv.second || !kv.second->enabled) continue;
+                    kv.second->tick(*this);
+                }    
+                fixedUpdateAccumulatedTime -= targetFrameTime;
             }
-
+            
             // Rendering phase
             if (currentLevel)
                 currentLevel->render(*this, gfx);
