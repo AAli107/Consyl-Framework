@@ -81,7 +81,7 @@ void GameLoop::setTickRate(int tickRate)
 {
     if (tickRate <= 0) return;
     this->tickRate = tickRate;
-    tickDeltaT = 1.0 / tickRate;
+    tickDeltaT = 1.0 / static_cast<double>(tickRate);
 }
 
 double GameLoop::getTickRate() { return tickRate; }
