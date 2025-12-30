@@ -29,7 +29,7 @@ void GameLoop::run()
                 currentLevel->tick(*this);
             for (auto& kv : world.gameObjects) {
                 if (!kv.second || !kv.second->enabled) continue;
-                kv.second->tick(*this); // TODO: Make tick() run at fixed amount of time
+                kv.second->tick(*this);
             }
 
             // Rendering phase
