@@ -1,0 +1,52 @@
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
+
+#include "../math/VecMath.h"
+#include "../math/Transform.h"
+#include "Component.h"
+
+#include <vector>
+#include <concepts>
+#include <memory>
+
+class Component;
+
+struct GameObject {
+private:
+    bool enabled = true;
+    std::vector<std::unique_ptr<Component>> components;
+
+    void update(GameLoop& gl);
+    void tick(GameLoop& gl);
+    void render(GameLoop& gl, Gfx& gfx);
+public:
+    Transform transform;
+
+    bool isEnabled() const noexcept { return enabled; }
+    void setEnabled(bool value) noexcept { enabled = value; }
+    template <std::derived_from<Component> T> T& addComponent();
+    template <std::derived_from<Component> T> T* getComponent() noexcept;
+
+    friend class GameLoop;
+};
+
+template <std::derived_from<Component> T>
+T &GameObject::addComponent()
+{
+    auto comp = std::make_unique<T>();
+    comp->setParent(*this);
+    T& ref = *comp;
+    components.push_back(std::move(comp));
+    return ref;
+}
+
+template <std::derived_from<Component> T>
+T* GameObject::getComponent() noexcept
+{
+    for (const auto& c : components)
+        if (auto* ptr = dynamic_cast<T*>(c.get()))
+            return ptr;
+    return nullptr;
+}
+
+#endif
