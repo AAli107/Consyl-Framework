@@ -29,7 +29,7 @@ public:
     void stop();
     void openLevel(Level* level);
     double deltaTime();
-    double fixedDeltaTime();
+    double tickDeltaTime();
     double timeRunning();
     void setTickRate(int tickRate);
     double getTickRate();

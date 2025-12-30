@@ -73,7 +73,7 @@ void GameLoop::openLevel(Level* level)
 
 double GameLoop::deltaTime() { return deltaT; }
 
-double GameLoop::fixedDeltaTime() { return targetFrameTime; }
+double GameLoop::tickDeltaTime() { return targetFrameTime; }
 
 double GameLoop::timeRunning() { return timeSinceStart; }
 
