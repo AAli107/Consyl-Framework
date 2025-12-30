@@ -1,12 +1,15 @@
 #include <iostream>
 #include <chrono>
+#include <assert.h>
 
 #include "GameLoop.h"
 #include "Level.h"
 #include "../utils/sleep.h"
 
-GameLoop::GameLoop(Level* level) {
+GameLoop::GameLoop(Level* level, int tickRate) {
+    assert(tickRate > 0);
     openLevel(level);
+    setTickRate(tickRate);
 }
 
 void GameLoop::run()
@@ -16,19 +19,31 @@ void GameLoop::run()
         while (isRunning) {
             auto startTime = std::chrono::high_resolution_clock::now();
             
-            if (currentLevel) {
-                currentLevel->update(*this);
-                // TODO: Add a fixed update `tick()` function for levels
-                currentLevel->render(*this, gfx);
-            }
-
+            // Per frame update phase
+            if (currentLevel) currentLevel->update(*this);
             for (auto& kv : world.gameObjects) {
                 if (!kv.second || !kv.second->enabled) continue;
                 kv.second->update(*this);
-                kv.second->tick(*this); // TODO: Make tick() run at fixed amount of time
+            }
+            
+            // tick update phase (runs fixed number of times per second)
+            tickAccumulatedTime += deltaT;
+            while (tickAccumulatedTime >= tickDeltaT)
+            {
+                if (currentLevel) currentLevel->tick(*this);
+                for (auto& kv : world.gameObjects) {
+                    if (!kv.second || !kv.second->enabled) continue;
+                    kv.second->tick(*this);
+                }    
+                tickAccumulatedTime -= tickDeltaT;
+            }
+            
+            // Rendering phase
+            if (currentLevel) currentLevel->render(*this, gfx);
+            for (auto& kv : world.gameObjects) {
+                if (!kv.second || !kv.second->enabled) continue;
                 kv.second->render(*this, gfx);
             }
-
             gfx.render();
             if (showStats)
                 std::cout << (1.0 / deltaT) << " FPS         \n" << (deltaT * 1000.0) << " ms         ";
@@ -58,7 +73,18 @@ void GameLoop::openLevel(Level* level)
 
 double GameLoop::deltaTime() { return deltaT; }
 
+double GameLoop::tickDeltaTime() { return tickDeltaT; }
+
 double GameLoop::timeRunning() { return timeSinceStart; }
+
+void GameLoop::setTickRate(int tickRate)
+{
+    if (tickRate <= 0) return;
+    this->tickRate = tickRate;
+    tickDeltaT = 1.0 / static_cast<double>(tickRate);
+}
+
+double GameLoop::getTickRate() { return tickRate; }
 
 GameObject* GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameObject)
 {

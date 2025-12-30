@@ -18,15 +18,21 @@ private:
     Gfx gfx = Gfx();
     Level* currentLevel = nullptr;
     World world{};
+    double tickAccumulatedTime = 0.0;
+    int tickRate;
+    double tickDeltaT;
 public:
     bool showStats = false;
 public:
-    GameLoop(Level* startingLevel);
+    GameLoop(Level* startingLevel, int tickRate);
     void run();
     void stop();
     void openLevel(Level* level);
     double deltaTime();
+    double tickDeltaTime();
     double timeRunning();
+    void setTickRate(int tickRate);
+    double getTickRate();
     GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject);
     GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject, Vec3 position);
     GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject, Vec3 position, Vec3 scale);
@@ -37,7 +43,6 @@ public:
     std::string getNameOfGameObject(GameObject* ptr);
     size_t gameObjectCount() const;
     std::vector<GameObject*> getGameObjects() const;
-
 };
 
 #endif

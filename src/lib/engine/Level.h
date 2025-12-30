@@ -7,6 +7,7 @@ public:
     double levelTime = 0.0;
     virtual void start(GameLoop& gl) {}
     virtual void update(GameLoop& gl) {}
+    virtual void tick(GameLoop& gl) {}
     virtual void render(GameLoop& gl, Gfx& gfx) {}
     virtual void end(GameLoop& gl) {}
 };

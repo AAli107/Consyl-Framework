@@ -4,11 +4,12 @@
 
 static const char* title = "Consyl Game";
 static auto startingLevel = SampleLevel();
+static int tickRate = 60; // per second
 
 int main() 
 {
     setConsoleTitle(title);
-    GameLoop gl = GameLoop(&startingLevel);
+    GameLoop gl = GameLoop(&startingLevel, tickRate);
     gl.run();
     return 0;
 }
