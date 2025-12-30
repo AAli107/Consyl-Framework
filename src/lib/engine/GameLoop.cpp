@@ -16,16 +16,27 @@ void GameLoop::run()
         while (isRunning) {
             auto startTime = std::chrono::high_resolution_clock::now();
             
-            if (currentLevel) {
+            // Per frame update phase
+            if (currentLevel)
                 currentLevel->update(*this);
-                // TODO: Add a fixed update `tick()` function for levels
-                currentLevel->render(*this, gfx);
-            }
-
             for (auto& kv : world.gameObjects) {
                 if (!kv.second || !kv.second->enabled) continue;
                 kv.second->update(*this);
+            }
+            
+            // TODO: Make this code run fixed number of times per second
+            if (currentLevel)
+                currentLevel->tick(*this);
+            for (auto& kv : world.gameObjects) {
+                if (!kv.second || !kv.second->enabled) continue;
                 kv.second->tick(*this); // TODO: Make tick() run at fixed amount of time
+            }
+
+            // Rendering phase
+            if (currentLevel)
+                currentLevel->render(*this, gfx);
+            for (auto& kv : world.gameObjects) {
+                if (!kv.second || !kv.second->enabled) continue;
                 kv.second->render(*this, gfx);
             }
 
