@@ -20,7 +20,7 @@ private:
     World world{};
     double tickAccumulatedTime = 0.0;
     int tickRate;
-    int targetFrameTime;
+    int tickDeltaT;
 public:
     bool showStats = false;
 public:

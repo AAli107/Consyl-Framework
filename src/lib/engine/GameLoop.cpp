@@ -28,14 +28,14 @@ void GameLoop::run()
             
             // tick update phase (runs fixed number of times per second)
             tickAccumulatedTime += deltaT;
-            while (tickAccumulatedTime >= targetFrameTime)
+            while (tickAccumulatedTime >= tickDeltaT)
             {
                 if (currentLevel) currentLevel->tick(*this);
                 for (auto& kv : world.gameObjects) {
                     if (!kv.second || !kv.second->enabled) continue;
                     kv.second->tick(*this);
                 }    
-                tickAccumulatedTime -= targetFrameTime;
+                tickAccumulatedTime -= tickDeltaT;
             }
             
             // Rendering phase
@@ -73,7 +73,7 @@ void GameLoop::openLevel(Level* level)
 
 double GameLoop::deltaTime() { return deltaT; }
 
-double GameLoop::tickDeltaTime() { return targetFrameTime; }
+double GameLoop::tickDeltaTime() { return tickDeltaT; }
 
 double GameLoop::timeRunning() { return timeSinceStart; }
 
@@ -81,7 +81,7 @@ void GameLoop::setTickRate(int tickRate)
 {
     if (tickRate <= 0) return;
     this->tickRate = tickRate;
-    targetFrameTime = 1.0 / tickRate;
+    tickDeltaT = 1.0 / tickRate;
 }
 
 double GameLoop::getTickRate() { return tickRate; }
