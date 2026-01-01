@@ -13,10 +13,10 @@
 void GameObjectTest_Level::start(GameLoop &gl) // Runs when the level starts
 {
     gl.showStats = true;
-    GameObject* g1 = gl.spawn("Game Object 1", std::make_unique<GameObject>(), Vec3(10, 23));
+    GameObject* g1 = gl.spawn("Game Object 1", GameObject(), Vec3(10, 23));
     g1->addComponent<DummyComponent>();
-    gl.spawn("Game Object 2", std::make_unique<GameObject>(), Vec3(23, 10));
-    GameObject* g3 = gl.spawn("Game Object 3", std::make_unique<GameObject>(), Vec3(40, 9));
+    gl.spawn("Game Object 2", GameObject(), Vec3(23, 10));
+    GameObject* g3 = gl.spawn("Game Object 3", GameObject(), Vec3(40, 9));
     g3->transform.scale = Vec2(0.5, 1.8);
 }
 
@@ -26,7 +26,7 @@ void GameObjectTest_Level::update(GameLoop &gl) // Runs every frame while the le
         gl.despawn("Game Object 2");
 
     if (isKeyDown(Key::ENTER) && !gl.doesGameObjectExist("Game Object 2")) {
-        gl.spawn("Game Object 2", std::make_unique<GameObject>(), Vec3(23, 10));
+        gl.spawn("Game Object 2", GameObject(), Vec3(23, 10));
     }
 
     if (isKeyDown(Key::EQUAL))

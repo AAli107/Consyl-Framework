@@ -33,10 +33,10 @@ public:
     double timeRunning();
     void setTickRate(int tickRate);
     double getTickRate();
-    GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject);
-    GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject, Vec3 position);
-    GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject, Vec3 position, Vec3 scale);
-    GameObject* spawn(std::string name, std::unique_ptr<GameObject> gameObject, Transform transform);
+    GameObject* spawn(std::string name, GameObject&& gameObject);
+    GameObject* spawn(std::string name, GameObject&& gameObject, Vec3 position);
+    GameObject* spawn(std::string name, GameObject&& gameObject, Vec3 position, Vec3 scale);
+    GameObject* spawn(std::string name, GameObject&& gameObject, Transform transform);
     bool despawn(std::string name);
     GameObject* getGameObjectByName(const std::string& name);
     bool doesGameObjectExist(const std::string& name);

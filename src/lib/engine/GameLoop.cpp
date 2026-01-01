@@ -86,30 +86,30 @@ void GameLoop::setTickRate(int tickRate)
 
 double GameLoop::getTickRate() { return tickRate; }
 
-GameObject* GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameObject)
+GameObject* GameLoop::spawn(std::string name, GameObject&& gameObject)
 {
-    std::string newName = name == "" ? "Game Object" : name;
+    std::string baseName = name.empty() ? "Game Object" : name;
+    std::string newName  = baseName;
     int n = 0;
     while (world.gameObjects.contains(newName)) {
         std::ostringstream oss;
-        oss << name << ' ' << n;
-        n++;
+        oss << baseName << ' ' << n++;
         newName = oss.str();
     }
 
-    auto [it, _] = world.gameObjects.emplace( std::move(newName), std::move(gameObject) );
+    auto [it, _] = world.gameObjects.emplace( std::move(newName), std::make_unique<GameObject>(std::move(gameObject)) );
 
     return it->second.get();
 }
 
-GameObject *GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameObject, Vec3 position)
+GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Vec3 position)
 {
     GameObject* goPtr = spawn(name, std::move(gameObject));
     if (goPtr) goPtr->transform.position = position;
     return goPtr;
 }
 
-GameObject *GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameObject, Vec3 position, Vec3 scale)
+GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Vec3 position, Vec3 scale)
 {
     GameObject* goPtr = spawn(name, std::move(gameObject));
     if (goPtr) {
@@ -119,7 +119,7 @@ GameObject *GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameOb
     return goPtr;
 }
 
-GameObject *GameLoop::spawn(std::string name, std::unique_ptr<GameObject> gameObject, Transform transform)
+GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Transform transform)
 {
     GameObject* goPtr = spawn(name, std::move(gameObject));
     if (goPtr) goPtr->transform = transform;
