@@ -15,7 +15,7 @@ double tickTimeRunning = 0;
 void TickingTest_Level::start(GameLoop &gl) // Runs when the level starts
 {
     gl.showStats = true;
-    GameObject* g1 = gl.spawn("Game Object 1", GameObject(), Vec3(32, 23));
+    GameObject* g1 = gl.spawnObject("Game Object 1", Vec3(32, 23));
     g1->addComponent<TickingComponent>();
 }
 

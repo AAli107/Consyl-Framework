@@ -86,7 +86,7 @@ void GameLoop::setTickRate(int tickRate)
 
 double GameLoop::getTickRate() { return tickRate; }
 
-GameObject* GameLoop::spawn(std::string name, GameObject&& gameObject)
+GameObject* GameLoop::spawnObject(std::string name)
 {
     std::string baseName = name.empty() ? "Game Object" : name;
     std::string newName  = baseName;
@@ -97,21 +97,21 @@ GameObject* GameLoop::spawn(std::string name, GameObject&& gameObject)
         newName = oss.str();
     }
 
-    auto [it, _] = world.gameObjects.emplace( std::move(newName), std::make_unique<GameObject>(std::move(gameObject)) );
+    auto [it, _] = world.gameObjects.emplace( std::move(newName), std::make_unique<GameObject>(GameObject()) );
 
     return it->second.get();
 }
 
-GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Vec3 position)
+GameObject *GameLoop::spawnObject(std::string name, Vec3 position)
 {
-    GameObject* goPtr = spawn(name, std::move(gameObject));
+    GameObject* goPtr = spawnObject(name);
     if (goPtr) goPtr->transform.position = position;
     return goPtr;
 }
 
-GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Vec3 position, Vec3 scale)
+GameObject *GameLoop::spawnObject(std::string name, Vec3 position, Vec3 scale)
 {
-    GameObject* goPtr = spawn(name, std::move(gameObject));
+    GameObject* goPtr = spawnObject(name);
     if (goPtr) {
         goPtr->transform.position = position;
         goPtr->transform.scale = scale;
@@ -119,14 +119,14 @@ GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Vec3 posi
     return goPtr;
 }
 
-GameObject *GameLoop::spawn(std::string name, GameObject&& gameObject, Transform transform)
+GameObject *GameLoop::spawnObject(std::string name, Transform transform)
 {
-    GameObject* goPtr = spawn(name, std::move(gameObject));
+    GameObject* goPtr = spawnObject(name);
     if (goPtr) goPtr->transform = transform;
     return goPtr;
 }
 
-bool GameLoop::despawn(std::string name)
+bool GameLoop::despawnObject(std::string name)
 {
     if (name == "") return false;
     return world.gameObjects.erase(name) > 0;
