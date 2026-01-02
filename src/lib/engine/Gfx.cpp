@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <algorithm>
 
-#include "../utils/cursor.h"
+#include "../utils/console.h"
 
 char cleanOutChar(char c)
 {

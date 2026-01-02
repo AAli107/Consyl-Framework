@@ -8,6 +8,8 @@ static int tickRate = 60; // per second
 
 int main() 
 {
+    int r = enableANSI();
+    if (r != 0) return r;
     setConsoleTitle(title);
     GameLoop gl = GameLoop(&startingLevel, tickRate);
     gl.run();
