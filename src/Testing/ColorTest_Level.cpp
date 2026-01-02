@@ -18,7 +18,10 @@ void ColorTest_Level::start(GameLoop &gl) // Runs when the level starts
 
 void ColorTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
 {
-    // Having a lot of differently colored Ascii pixels can slow performance 
+    float bgCos = (cos((float)gl.timeRunning() * 1.0f) + 1) / 2;
+    gfx.backgroundColor = Color(bgCos, bgCos * 0.5f, 0.0f);
+
+    // Having a lot of differently colored Ascii pixels can slow performance
     float b = (sin((float)gl.timeRunning() * 2.0f) + 1) / 2;
     for (float r = 0; r < 60; r++)
         for (float g = 0; g < 60; g++)

@@ -172,3 +172,8 @@ std::vector<GameObject*> GameLoop::getGameObjects() const
 
     return result;
 }
+
+void GameLoop::setBackgroundColor(const Color c)
+{
+    gfx.backgroundColor = c;
+}
