@@ -27,8 +27,7 @@ void Gfx::render()
     std::string out;
     out.reserve(GFX_WIDTH * GFX_HEIGHT * 8);
     
-    Color lastFg = Color(0, 0, 0);
-    Color lastBg = Color(0, 0, 0);
+    Color lastColor = Color(0, 0, 0);
     bool firstPixel = true;
 
     for (size_t y = 0; y < GFX_HEIGHT; y++)
@@ -37,25 +36,15 @@ void Gfx::render()
         {
             const AsciiPixel &pix = drawBuffer[x][y];
 
-            if (firstPixel
-                || pix.fgColor.r != lastFg.r
-                || pix.fgColor.g != lastFg.g
-                || pix.fgColor.b != lastFg.b
-                || pix.bgColor.r != lastBg.r
-                || pix.bgColor.g != lastBg.g
-                || pix.bgColor.b != lastBg.b)
+            if (firstPixel || pix.color.r != lastColor.r || pix.color.g != lastColor.g || pix.color.b != lastColor.b)
             {
                 firstPixel = false;
-                lastFg = pix.fgColor;
-                lastBg = pix.bgColor;
+                lastColor = pix.color;
 
-                out += "\x1b[38;2;";
-                out += std::to_string((int)pix.fgColor.r) + ";";
-                out += std::to_string((int)pix.fgColor.g) + ";";
-                out += std::to_string((int)pix.fgColor.b) + ";48;2;";
-                out += std::to_string((int)pix.bgColor.r) + ";";
-                out += std::to_string((int)pix.bgColor.g) + ";";
-                out += std::to_string((int)pix.bgColor.b) + "m";
+                out += "\x1b[38;2;" + 
+                    std::to_string((int)pix.color.r) + ";" + 
+                    std::to_string((int)pix.color.g) + ";" + 
+                    std::to_string((int)pix.color.b) + "m";
             }
 
             out.push_back(cleanOutChar(pix.pixelChar));

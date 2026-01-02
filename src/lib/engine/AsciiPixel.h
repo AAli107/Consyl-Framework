@@ -7,13 +7,11 @@ struct AsciiPixel
 {
 public:
     char pixelChar = 0;
-    Color fgColor = Color(255, 255, 255);
-    Color bgColor = Color(0, 0, 0);
+    Color color = Color(255, 255, 255);
 
     AsciiPixel();
     AsciiPixel(char pixelChar);
-    AsciiPixel(char pixelChar, Color fgColor);
-    AsciiPixel(char pixelChar, Color fgColor, Color bgColor);
+    AsciiPixel(char pixelChar, Color color);
 };
 
 #endif
