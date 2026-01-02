@@ -33,6 +33,9 @@ Color Color::diff(const Color &c) const
 Color Color::scale(const float &v) const
 { return Color((r / 255.0f) * v, (g / 255.0f) * v, (b / 255.0f) * v); }
 
+Vec3 Color::normalized() const
+{ return Vec3(r / 255.0, g / 255.0, b / 255.0); }
+
 Color::operator Vec3()
 { return Vec3(r, g, b); }
 
