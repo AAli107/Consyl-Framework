@@ -36,6 +36,17 @@ Color Color::scale(const float &v) const
 Vec3 Color::normalized() const
 { return Vec3(r / 255.0, g / 255.0, b / 255.0); }
 
+Color Color::setSaturation(const float& v) const
+{
+    float rf = r / 255.0f;
+    float gf = g / 255.0f;
+    float bf = b / 255.0f;
+
+    float gray = 0.299f * rf + 0.587f * gf + 0.114f * bf;
+    
+    return Color(std::lerp(gray, rf, v), std::lerp(gray, gf, v), std::lerp(gray, bf, v));
+}
+
 Color::operator Vec3()
 { return Vec3(r, g, b); }
 

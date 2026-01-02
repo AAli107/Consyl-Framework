@@ -17,6 +17,7 @@ public:
     Color diff(const Color& c) const;
     Color scale(const float& v) const;
     Vec3 normalized() const;
+    Color setSaturation(const float& v) const;
 
     operator Vec3();
 };
