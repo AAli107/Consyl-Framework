@@ -15,7 +15,7 @@ public:
 
     Color invert() const;
     Color diff(const Color& c) const;
-    Color scale(const double& v) const;
+    Color scale(const float& v) const;
 
     operator Vec3();
 };
