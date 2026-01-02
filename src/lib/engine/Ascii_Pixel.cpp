@@ -1,20 +1,20 @@
-#include "ASCIIPixel.h"
+#include "AsciiPixel.h"
 
 #include <sstream>
 
-ASCIIPixel::ASCIIPixel() : 
+AsciiPixel::AsciiPixel() : 
     pixelChar(0), 
     fgColor(Color(255, 255, 255)),
     bgColor(Color(0, 0, 0))
 {}
 
-ASCIIPixel::ASCIIPixel(char pixelChar, Color fgColor, Color bgColor) : 
+AsciiPixel::AsciiPixel(char pixelChar, Color fgColor, Color bgColor) : 
     pixelChar(pixelChar), 
     fgColor(fgColor),
     bgColor(bgColor)
 {}
 
-std::string ASCIIPixel::toString()
+std::string AsciiPixel::toString()
 {
     std::ostringstream oss;
     oss << "\x1b[38;2;" << fgColor.r << ";" << fgColor.g << ";" << fgColor.b
