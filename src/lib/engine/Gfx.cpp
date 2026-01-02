@@ -27,7 +27,7 @@ void Gfx::render()
     setBackgroundColor(backgroundColor);
 
     std::string out;
-    out.reserve(GFX_WIDTH * GFX_HEIGHT * 8);
+    out.reserve(GFX_WIDTH * GFX_HEIGHT * 12);
     
     Color lastColor = Color(0, 0, 0);
     bool firstPixel = true;
