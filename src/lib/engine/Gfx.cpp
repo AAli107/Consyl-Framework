@@ -24,6 +24,8 @@ void Gfx::render()
     hideCursor();
     moveCursorTop();
 
+    setBackgroundColor(backgroundColor);
+
     std::string out;
     out.reserve(GFX_WIDTH * GFX_HEIGHT * 8);
     

@@ -11,6 +11,8 @@ class Gfx {
 private:
     AsciiPixel drawBuffer[GFX_WIDTH][GFX_HEIGHT] = {0};
 public:
+    Color backgroundColor = Color(0, 0, 0);
+
     void render();
     void setPixel(int x, int y, AsciiPixel c);
     void setPixel(const Vec2 v, AsciiPixel c);
