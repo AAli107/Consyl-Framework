@@ -30,6 +30,9 @@ Color Color::invert() const
 Color Color::diff(const Color &c) const
 { return Color(abs(r - c.r), abs(g - c.g), abs(b - c.b)); }
 
+Color Color::scale(const double &v) const
+{ return Color((r / 255.0) * v, (g / 255.0) * v, (b / 255.0) * v); }
+
 Color::operator Vec3()
 { return Vec3(r, g, b); }
 
