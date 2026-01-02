@@ -13,7 +13,8 @@ public:
     Color(float r, float g, float b);
     Color(double r, double g, double b);
 
-    Color diff(const Color& c);
+    Color invert() const;
+    Color diff(const Color& c) const;
 
     operator Vec3();
 };

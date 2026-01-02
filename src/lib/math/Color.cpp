@@ -24,7 +24,10 @@ Color::Color(double r, double g, double b) :
     g(static_cast<std::uint8_t>(std::clamp(int(std::lround(g * 255.0)), 0, 255))),
     b(static_cast<std::uint8_t>(std::clamp(int(std::lround(b * 255.0)), 0, 255))) {}
 
-Color Color::diff(const Color &c)
+Color Color::invert() const
+{ return Color(255 - r, 255 - g, 255 - b); }
+
+Color Color::diff(const Color &c) const
 { return Color(abs(r - c.r), abs(g - c.g), abs(b - c.b)); }
 
 Color::operator Vec3()
