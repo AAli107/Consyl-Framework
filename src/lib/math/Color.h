@@ -12,6 +12,9 @@ public:
     Color(int r, int g, int b);
     Color(float r, float g, float b);
     Color(double r, double g, double b);
+
+    Color diff(const Color& c);
+
     operator Vec3();
 };
 
