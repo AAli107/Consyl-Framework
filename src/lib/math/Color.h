@@ -1,6 +1,8 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include "Vec3.h"
+
 struct Color {
 public:
     unsigned char r, g, b;
@@ -10,6 +12,7 @@ public:
     Color(int r, int g, int b);
     Color(float r, float g, float b);
     Color(double r, double g, double b);
+    operator Vec3();
 };
 
 Color operator+(const Color& a, const Color& b);

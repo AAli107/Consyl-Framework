@@ -24,6 +24,9 @@ Color::Color(double r, double g, double b) :
     g(static_cast<std::uint8_t>(std::clamp(int(std::lround(g * 255.0)), 0, 255))),
     b(static_cast<std::uint8_t>(std::clamp(int(std::lround(b * 255.0)), 0, 255))) {}
 
+Color::operator Vec3()
+{ return Vec3(r, g, b); }
+
 Color operator+(const Color &a, const Color &b)
 { return Color(a.r + b.r, a.g + b.g, a.b + b.b); }
 
