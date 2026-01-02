@@ -98,7 +98,7 @@ void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel inn
 
 void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel c) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c); }
 
-void Gfx::drawText(int x, int y, const std::string str) // TODO: Allow drawText to accept color
+void Gfx::drawText(int x, int y, const std::string str, Color color)
 {
     int charX = x;
     int charY = y;
@@ -120,14 +120,18 @@ void Gfx::drawText(int x, int y, const std::string str) // TODO: Allow drawText 
         if (charX >= 0 && charX < GFX_WIDTH &&
             charY >= 0 && charY < GFX_HEIGHT)
         {
-            setPixel(charX, charY, c);
+            setPixel(charX, charY, AsciiPixel(c, color));
         }
 
         charX++;
     }
 }
 
-void Gfx::drawText(const Vec2 v, std::string str) { drawText((int)v.x, (int)v.y, str); }
+void Gfx::drawText(const Vec2 v, std::string str, Color color) { drawText((int)v.x, (int)v.y, str, color); }
+
+void Gfx::drawText(int x, int y, const std::string str) { drawText(x, y, str, Color(1.0f, 1.0f, 1.0f)); }
+
+void Gfx::drawText(const Vec2 v, std::string str) { drawText((int)v.x, (int)v.y, str, Color(1.0f, 1.0f, 1.0f)); }
 
 void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c)
 {

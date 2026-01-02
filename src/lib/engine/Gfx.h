@@ -22,6 +22,8 @@ public:
     void drawRect(int x, int y, int w, int h, AsciiPixel c);
     void drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel innerC);
     void drawRect(const Vec2 v, const Vec2 d, AsciiPixel c);
+    void drawText(int x, int y, const std::string str, Color color);
+    void drawText(const Vec2 v, const std::string str, Color color);
     void drawText(int x, int y, const std::string str);
     void drawText(const Vec2 v, const std::string str);
     void drawLine(int x0, int y0, int x1, int y1, AsciiPixel c);
