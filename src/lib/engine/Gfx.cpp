@@ -22,54 +22,92 @@ char cleanOutChar(char c)
 void Gfx::render()
 {
     hideCursor();
-    std::ostringstream oss;
     moveCursorTop();
+
+    std::string out;
+    out.reserve(GFX_WIDTH * GFX_HEIGHT * 8);
+    
+    Color lastFg = Color(0, 0, 0);
+    Color lastBg = Color(0, 0, 0);
+    bool firstPixel = true;
+
     for (size_t y = 0; y < GFX_HEIGHT; y++)
     {
         for (size_t x = 0; x < GFX_WIDTH; x++)
-            oss << cleanOutChar(drawBuffer[x][y]) << " ";
-        oss << '\n';
+        {
+            const AsciiPixel &pix = drawBuffer[x][y];
+
+            if (firstPixel
+                || pix.fgColor.r != lastFg.r
+                || pix.fgColor.g != lastFg.g
+                || pix.fgColor.b != lastFg.b
+                || pix.bgColor.r != lastBg.r
+                || pix.bgColor.g != lastBg.g
+                || pix.bgColor.b != lastBg.b)
+            {
+                firstPixel = false;
+                lastFg = pix.fgColor;
+                lastBg = pix.bgColor;
+
+                out += "\x1b[38;2;";
+                out += std::to_string((int)pix.fgColor.r) + ";";
+                out += std::to_string((int)pix.fgColor.g) + ";";
+                out += std::to_string((int)pix.fgColor.b) + ";48;2;";
+                out += std::to_string((int)pix.bgColor.r) + ";";
+                out += std::to_string((int)pix.bgColor.g) + ";";
+                out += std::to_string((int)pix.bgColor.b) + "m";
+            }
+
+            out.push_back(cleanOutChar(pix.pixelChar));
+            out.push_back(' ');
+        }
+
+        out.push_back('\n');
     }
-    memset(drawBuffer, 0, sizeof(drawBuffer));
-    std::cout << oss.str();
+
+    std::fill(&drawBuffer[0][0],
+              &drawBuffer[0][0] + GFX_WIDTH * GFX_HEIGHT,
+              AsciiPixel{});
+
+    std::cout << out;
 }
 
-void Gfx::setPixel(int x, int y, char c)
+void Gfx::setPixel(int x, int y, AsciiPixel c)
 {
     if (x < 0 || x >= GFX_WIDTH || y < 0 || y >= GFX_HEIGHT) return;
     drawBuffer[x][y] = c;
 }
 
-void Gfx::setPixel(const Vec2 v, char c) { setPixel((int)v.x, (int)v.y, c); }
+void Gfx::setPixel(const Vec2 v, AsciiPixel c) { setPixel((int)v.x, (int)v.y, c); }
 
-char Gfx::getPixel(int x, int y) const
+AsciiPixel Gfx::getPixel(int x, int y) const
 {
     if (x < 0 || x >= GFX_WIDTH || y < 0 || y >= GFX_HEIGHT) return 0;
     return drawBuffer[x][y];
 }
 
-char Gfx::getPixel(const Vec2 v) const { return getPixel((int)v.x, (int)v.y); }
+AsciiPixel Gfx::getPixel(const Vec2 v) const { return getPixel((int)v.x, (int)v.y); }
 
-void Gfx::drawRect(int x, int y, int w, int h, char outerC, char innerC)
+void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel outerC, AsciiPixel innerC)
 {
     for (size_t dy = y; dy < y+h; dy++)
     {
         for (size_t dx = x; dx < x+w; dx++)
         {
             if (dx < 0 || dx >= GFX_WIDTH || dy < 0 || dy >= GFX_HEIGHT) continue;
-            char c = dx == x || dx == (x+w)-1 || dy == y || dy == (y+h)-1 ? outerC : innerC;
+            AsciiPixel c = dx == x || dx == (x+w)-1 || dy == y || dy == (y+h)-1 ? outerC : innerC;
             setPixel(dx, dy, c);
         }
     }
 }
 
-void Gfx::drawRect(int x, int y, int w, int h, char c) { drawRect(x, y, w, h, c, c); }
+void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel c) { drawRect(x, y, w, h, c, c); }
 
-void Gfx::drawRect(const Vec2 v, const Vec2 d, char outerC, char innerC) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, outerC, innerC); }
+void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel innerC) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, outerC, innerC); }
 
-void Gfx::drawRect(const Vec2 v, const Vec2 d, char c) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c); }
+void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel c) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c); }
 
-void Gfx::drawText(int x, int y, const std::string str)
+void Gfx::drawText(int x, int y, const std::string str) // TODO: Allow drawText to accept color
 {
     int charX = x;
     int charY = y;
@@ -100,7 +138,7 @@ void Gfx::drawText(int x, int y, const std::string str)
 
 void Gfx::drawText(const Vec2 v, std::string str) { drawText((int)v.x, (int)v.y, str); }
 
-void Gfx::drawLine(int x0, int y0, int x1, int y1, char c)
+void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c)
 {
     int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -129,9 +167,9 @@ void Gfx::drawLine(int x0, int y0, int x1, int y1, char c)
     }
 }
 
-void Gfx::drawLine(const Vec2 v0, const Vec2 v1, char c) { drawLine((int)v0.x, (int)v0.y, (int)v1.x, (int)v1.y, c); }
+void Gfx::drawLine(const Vec2 v0, const Vec2 v1, AsciiPixel c) { drawLine((int)v0.x, (int)v0.y, (int)v1.x, (int)v1.y, c); }
 
-void Gfx::drawCircle(int x, int y, int radius, char outerC, char innerC)
+void Gfx::drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel innerC)
 {
     for (int dy = y - radius; dy <= y + radius; dy++)
     {
@@ -146,13 +184,13 @@ void Gfx::drawCircle(int x, int y, int radius, char outerC, char innerC)
     }
 }
 
-void Gfx::drawCircle(int x, int y, int radius, char c) { drawCircle(x, y, radius, c, c); }
+void Gfx::drawCircle(int x, int y, int radius, AsciiPixel c) { drawCircle(x, y, radius, c, c); }
 
-void Gfx::drawCircle(const Vec2 v, int radius, char outerC, char innerC) { drawCircle((int)v.x, (int)v.y, radius, outerC, innerC); }
+void Gfx::drawCircle(const Vec2 v, int radius, AsciiPixel outerC, AsciiPixel innerC) { drawCircle((int)v.x, (int)v.y, radius, outerC, innerC); }
 
-void Gfx::drawCircle(const Vec2 v, int radius, char c) { drawCircle((int)v.x, (int)v.y, radius, c, c); }
+void Gfx::drawCircle(const Vec2 v, int radius, AsciiPixel c) { drawCircle((int)v.x, (int)v.y, radius, c, c); }
 
-void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char outerC, char innerC)
+void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel outerC, AsciiPixel innerC)
 {
     static auto edgeFunc = [](int x0, int y0, int x1, int y1, int x, int y) -> int64_t 
     { return int64_t(x - x0) * int64_t(y1 - y0) - int64_t(y - y0) * int64_t(x1 - x0); };
@@ -194,13 +232,13 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char outerC, c
     drawLine(x2, y2, x0, y0, outerC);
 }
 
-void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, char c) { drawTri(x0, y0, x1, y1, x2, y2, c, c); }
+void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel c) { drawTri(x0, y0, x1, y1, x2, y2, c, c); }
 
-void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, char outerC, char innerC) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, outerC, innerC); }
+void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, AsciiPixel outerC, AsciiPixel innerC) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, outerC, innerC); }
 
-void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, char c) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, c, c); }
+void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, AsciiPixel c) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, c, c); }
 
-void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, char outerC, char innerC)
+void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, AsciiPixel outerC, AsciiPixel innerC)
 {
     drawTri(x0, y0, x1, y1, x2, y2, innerC, innerC);
     drawTri(x0, y0, x2, y2, x3, y3, innerC, innerC);
@@ -211,11 +249,11 @@ void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y
     drawLine(x3, y3, x0, y0, outerC);
 }
 
-void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, char c) 
+void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, AsciiPixel c) 
 { drawQuad(x0, y0, x1, y1, x2, y2, x3, y3, c, c); }
 
-void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, char outerC, char innerC)
+void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, AsciiPixel outerC, AsciiPixel innerC)
 { drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, outerC, innerC); }
 
-void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, char c)
+void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, AsciiPixel c)
 { drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, c, c); }
