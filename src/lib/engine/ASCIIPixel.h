@@ -12,6 +12,8 @@ public:
 
     ASCIIPixel();
     ASCIIPixel(char pixelChar, Color fgColor, Color bgColor);
+
+    std::string toString();
 };
 
 #endif
