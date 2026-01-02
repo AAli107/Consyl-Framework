@@ -32,3 +32,12 @@ int enableANSI() { return 0; } // Should do nothing since non-windows platforms 
 
 void setConsoleTitle(const char* title)
 { std::cout << "\033]0;" << title << "\007"; }
+
+void moveCursorTop()
+{ std::cout << "\033[H"; }
+
+void hideCursor()
+{ std::cout << "\033[?25l" << std::flush; }
+
+void showCursor()
+{ std::cout << "\033[?25h" << std::flush; }
