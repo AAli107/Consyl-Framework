@@ -23,7 +23,7 @@ void ColorTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after u
 
     // Having a lot of differently colored Ascii pixels can slow performance
     float b = (sin((float)gl.timeRunning() * 2.0f) + 1) / 2;
-    for (float r = 0; r < 60; r++)
-        for (float g = 0; g < 60; g++)
-            gfx.setPixel(r, g, AsciiPixel('A', Color(r / 60.0f, g / 60.0f, b)));
+    for (float r = 0; r < 50; r++)
+        for (float g = 0; g < 50; g++)
+            gfx.setPixel(r, g, AsciiPixel('A', Color(r / 50.0f, g / 50.0f, b)));
 }

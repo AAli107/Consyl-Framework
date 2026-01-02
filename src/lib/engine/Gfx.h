@@ -4,8 +4,8 @@
 #include "../math/Vec2.h"
 #include "AsciiPixel.h"
 
-#define GFX_WIDTH 115
-#define GFX_HEIGHT 60
+#define GFX_WIDTH 80
+#define GFX_HEIGHT 50
 
 class Gfx {
 private:
