@@ -12,4 +12,13 @@ public:
     Color(double r, double g, double b);
 };
 
+Color operator+(const Color& a, const Color& b);
+Color operator-(const Color& a, const Color& b);
+Color operator*(const Color& a, const Color& b);
+Color operator/(const Color& a, const Color& b);
+void operator+=(Color& a, const Color& b);
+void operator-=(Color& a, const Color& b);
+void operator*=(Color& a, const Color& b);
+void operator/=(Color& a, const Color& b);
+
 #endif
