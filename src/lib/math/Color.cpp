@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <algorithm>
 #include <cmath>
+#include <sstream>
 
 Color::Color() : r(0), g(0), b(0) {}
 
@@ -46,6 +47,16 @@ Color Color::setSaturation(const float& v) const
     
     return Color(std::lerp(gray, rf, v), std::lerp(gray, gf, v), std::lerp(gray, bf, v));
 }
+
+std::string Color::toString() const
+{
+    std::ostringstream oss;
+    oss << "<" << r << ", " << g  << ", " << b << ">";
+    return oss.str();
+}
+
+Color::operator std::string()
+{ return toString(); }
 
 Color::operator Vec3()
 { return Vec3(r, g, b); }

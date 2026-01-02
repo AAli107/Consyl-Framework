@@ -19,6 +19,8 @@ public:
     Vec3 normalized() const;
     Color setSaturation(const float& v) const;
 
+    std::string toString() const;
+    operator std::string();
     operator Vec3();
 };
 
