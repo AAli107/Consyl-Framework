@@ -38,7 +38,7 @@ void Gfx::render()
         {
             const AsciiPixel &pix = drawBuffer[x][y];
 
-            if (firstPixel || pix.color.r != lastColor.r || pix.color.g != lastColor.g || pix.color.b != lastColor.b)
+            if (firstPixel || pix.color != lastColor)
             {
                 firstPixel = false;
                 lastColor = pix.color;
