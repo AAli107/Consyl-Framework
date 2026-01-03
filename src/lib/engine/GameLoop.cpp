@@ -46,7 +46,7 @@ void GameLoop::run()
             }
             gfx.render();
             if (showStats)
-                std::cout << (1.0 / deltaT) << " FPS         \n" << (deltaT * 1000.0) << " ms         ";
+                std::cout << (1.0 / deltaT) << " FPS         \n" << (deltaT * 1000.0) << " ms          ";
 
             sleep_us(1);
             deltaT = std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -171,4 +171,9 @@ std::vector<GameObject*> GameLoop::getGameObjects() const
         result.push_back(obj.get());
 
     return result;
+}
+
+void GameLoop::setBackgroundColor(const Color c)
+{
+    gfx.backgroundColor = c;
 }

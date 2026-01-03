@@ -41,3 +41,6 @@ void hideCursor()
 
 void showCursor()
 { std::cout << "\033[?25h" << std::flush; }
+
+void setBackgroundColor(const Color& c)
+{ std::cout << "\x1b[48;2;" << int(c.r) << ";" << int(c.g) << ";" << int(c.b) << "m"; }

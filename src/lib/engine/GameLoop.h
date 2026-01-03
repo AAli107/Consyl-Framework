@@ -43,6 +43,7 @@ public:
     std::string getNameOfGameObject(GameObject* ptr);
     size_t gameObjectCount() const;
     std::vector<GameObject*> getGameObjects() const;
+    void setBackgroundColor(const Color c);
 };
 
 #endif
