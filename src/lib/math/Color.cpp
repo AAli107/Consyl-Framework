@@ -7,22 +7,26 @@
 Color::Color() : r(0), g(0), b(0) {}
 
 Color::Color(unsigned char r, unsigned char g, unsigned char b)
-    : r(r), g(g), b(b) {}
+    : r(r), g(g), b(b)
+{}
 
 Color::Color(int r, int g, int b) : 
     r(static_cast<unsigned char>(std::clamp(r, 0, 255))),
     g(static_cast<unsigned char>(std::clamp(g, 0, 255))),
-    b(static_cast<unsigned char>(std::clamp(b, 0, 255))) {}
+    b(static_cast<unsigned char>(std::clamp(b, 0, 255)))
+{}
 
 Color::Color(float r, float g, float b) : 
     r(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(r * 255.0f)), 0, 255))),
     g(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(g * 255.0f)), 0, 255))),
-    b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0f)), 0, 255))) {}
+    b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0f)), 0, 255)))
+{}
 
 Color::Color(double r, double g, double b) : 
     r(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(r * 255.0)), 0, 255))),
     g(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(g * 255.0)), 0, 255))),
-    b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0)), 0, 255))) {}
+    b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0)), 0, 255)))
+{}
 
 Color Color::invert() const
 { return Color(255 - r, 255 - g, 255 - b); }
