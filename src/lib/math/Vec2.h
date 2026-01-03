@@ -36,5 +36,6 @@ void operator*=(Vec2& a, const double& b);
 void operator/=(Vec2& a, const double& b);
 void operator++(Vec2& a);
 void operator--(Vec2& a);
+bool operator==(const Vec2& a, const Vec2& b);
 
 #endif

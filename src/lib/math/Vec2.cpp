@@ -55,3 +55,6 @@ void operator/=(Vec2 &a, const double &b) { a = Vec2(a.x / b, a.y / b); }
 void operator++(Vec2 &a) { a = Vec2(a.x+1, a.y+1); }
 
 void operator--(Vec2 &a) { a = Vec2(a.x-1, a.y-1); }
+
+bool operator==(const Vec2 &a, const Vec2 &b)
+{ return a.x == b.x && a.y == b.y; }
