@@ -93,3 +93,6 @@ void operator*=(Color &a, const Color &b)
 
 void operator/=(Color &a, const Color &b)
 { a = Color(a.r / b.r, a.g / b.g, a.b / b.b); }
+
+bool operator==(Color &a, const Color &b)
+{ return a.r == b.r && a.g == b.g && a.b == b.b; }

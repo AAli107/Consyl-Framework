@@ -32,5 +32,6 @@ void operator+=(Color& a, const Color& b);
 void operator-=(Color& a, const Color& b);
 void operator*=(Color& a, const Color& b);
 void operator/=(Color& a, const Color& b);
+bool operator==(Color& a, const Color& b);
 
 #endif
