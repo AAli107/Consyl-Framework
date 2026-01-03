@@ -15,14 +15,14 @@ Color::Color(int r, int g, int b) :
     b(static_cast<unsigned char>(std::clamp(b, 0, 255))) {}
 
 Color::Color(float r, float g, float b) : 
-    r(static_cast<unsigned char>(std::clamp(int(std::lround(r * 255.0f)), 0, 255))),
-    g(static_cast<unsigned char>(std::clamp(int(std::lround(g * 255.0f)), 0, 255))),
-    b(static_cast<unsigned char>(std::clamp(int(std::lround(b * 255.0f)), 0, 255))) {}
+    r(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(r * 255.0f)), 0, 255))),
+    g(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(g * 255.0f)), 0, 255))),
+    b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0f)), 0, 255))) {}
 
 Color::Color(double r, double g, double b) : 
-    r(static_cast<unsigned char>(std::clamp(int(std::lround(r * 255.0)), 0, 255))),
-    g(static_cast<unsigned char>(std::clamp(int(std::lround(g * 255.0)), 0, 255))),
-    b(static_cast<unsigned char>(std::clamp(int(std::lround(b * 255.0)), 0, 255))) {}
+    r(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(r * 255.0)), 0, 255))),
+    g(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(g * 255.0)), 0, 255))),
+    b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0)), 0, 255))) {}
 
 Color Color::invert() const
 { return Color(255 - r, 255 - g, 255 - b); }
@@ -33,9 +33,9 @@ Color Color::diff(const Color &c) const
 Color Color::scale(const float v) const
 {
     return Color(
-        static_cast<unsigned char>(std::clamp(int(std::lround(r * v)), 0, 255)),
-        static_cast<unsigned char>(std::clamp(int(std::lround(g * v)), 0, 255)),
-        static_cast<unsigned char>(std::clamp(int(std::lround(b * v)), 0, 255))
+        static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(r * v)), 0, 255)),
+        static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(g * v)), 0, 255)),
+        static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * v)), 0, 255))
     ); 
 }
 
