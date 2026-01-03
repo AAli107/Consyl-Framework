@@ -30,7 +30,7 @@ Color Color::invert() const
 Color Color::diff(const Color &c) const
 { return Color(abs(r - c.r), abs(g - c.g), abs(b - c.b)); }
 
-Color Color::scale(const float &v) const
+Color Color::scale(const float v) const
 {
     return Color(
         static_cast<unsigned char>(std::clamp(int(std::lround(r * v)), 0, 255)),
@@ -42,7 +42,7 @@ Color Color::scale(const float &v) const
 Vec3 Color::normalized() const
 { return Vec3(r / 255.0, g / 255.0, b / 255.0); }
 
-Color Color::setSaturation(const float& v) const
+Color Color::setSaturation(const float v) const
 {
     float rf = r / 255.0f;
     float gf = g / 255.0f;

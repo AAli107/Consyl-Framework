@@ -15,9 +15,9 @@ public:
 
     Color invert() const;
     Color diff(const Color& c) const;
-    Color scale(const float& v) const;
+    Color scale(const float v) const;
     Vec3 normalized() const;
-    Color setSaturation(const float& v) const;
+    Color setSaturation(const float v) const;
 
     std::string toString() const;
     operator std::string();
