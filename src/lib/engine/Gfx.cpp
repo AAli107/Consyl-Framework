@@ -202,6 +202,14 @@ void Gfx::drawLine(const Vec2 v0, const Vec2 v1, AsciiPixel c, bool isScreenSpac
 
 void Gfx::drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
 {
+    if (radius <= 0) return;
+
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
     for (int dy = y - radius; dy <= y + radius; dy++)
     {
         for (int dx = x - radius; dx <= x + radius; dx++)
@@ -210,7 +218,11 @@ void Gfx::drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel inn
 
             if (dist > radius + 0.5) continue;
 
-            setPixel(dx, dy, std::abs(dist - radius) < 0.5 ? outerC : innerC);
+            setPixel(
+                static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + halfWidth,
+                static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + halfHeight,
+                std::abs(dist - radius) < 0.5 ? outerC : innerC
+            );
         }
     }
 }
