@@ -3,6 +3,7 @@
 
 #include "../math/Vec2.h"
 #include "AsciiPixel.h"
+#include "Camera.h"
 
 #define GFX_WIDTH 80
 #define GFX_HEIGHT 50
@@ -12,6 +13,7 @@ private:
     AsciiPixel drawBuffer[GFX_WIDTH][GFX_HEIGHT] = {0};
 public:
     Color backgroundColor = Color(0, 0, 0);
+    Camera currentCamera = Camera();
 
     void render();
     void setPixel(int x, int y, AsciiPixel c);
