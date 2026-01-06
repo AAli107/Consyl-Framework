@@ -93,8 +93,8 @@ void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel outerC, AsciiPixel inn
     {
         for (int dx = x; dx < x+w; dx++)
         {
-            int posX = static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + halfWidth;
-            int posY = static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + halfHeight;
+            int posX = static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + (isScreenSpace ? 0 : halfWidth);
+            int posY = static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + (isScreenSpace ? 0 : halfHeight);
 
             if (posX < 0 || posX >= GFX_WIDTH || posY < 0 || posY >= GFX_HEIGHT) continue;
             AsciiPixel c = dx == x || dx == (x+w)-1 || dy == y || dy == (y+h)-1 ? outerC : innerC;
@@ -112,22 +112,30 @@ void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel inn
 void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel c, bool isScreenSpace)
 { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c, isScreenSpace); }
 
-void Gfx::drawText(int x, int y, const std::string str, Color color, bool isScreenSpace)
-{
-    int charX = x;
-    int charY = y;
+void Gfx::drawText(int x, int y, const std::string& str, Color color, bool isScreenSpace)
+{    
+    int baseX = static_cast<int>(std::lround(
+        static_cast<double>(x) - (isScreenSpace ? 0.0 : currentCamera.transform.position.x)
+    )) + (isScreenSpace ? 0 : (GFX_WIDTH / 2));
+
+    int baseY = static_cast<int>(std::lround(
+        static_cast<double>(y) - (isScreenSpace ? 0.0 : currentCamera.transform.position.y)
+    )) + (isScreenSpace ? 0 : (GFX_HEIGHT / 2));
+
+    int charX = baseX;
+    int charY = baseY;
 
     for (char c : str)
     {
         switch (c)
         {
         case '\n':
-            charX = x;
+            charX = baseX;
             charY++;
             continue;
 
         case '\t':
-            charX = ((charX / 4) + 1) * 4;
+            charX = (((charX - baseX) / 4) + 1) * 4 + baseX;
             continue;
         }
 
@@ -141,13 +149,13 @@ void Gfx::drawText(int x, int y, const std::string str, Color color, bool isScre
     }
 }
 
-void Gfx::drawText(const Vec2 v, std::string str, Color color, bool isScreenSpace)
+void Gfx::drawText(const Vec2 v, const std::string& str, Color color, bool isScreenSpace)
 { drawText((int)v.x, (int)v.y, str, color, isScreenSpace); }
 
-void Gfx::drawText(int x, int y, const std::string str, bool isScreenSpace)
+void Gfx::drawText(int x, int y, const std::string& str, bool isScreenSpace)
 { drawText(x, y, str, Color(1.0f, 1.0f, 1.0f), isScreenSpace); }
 
-void Gfx::drawText(const Vec2 v, std::string str, bool isScreenSpace)
+void Gfx::drawText(const Vec2 v, const std::string& str, bool isScreenSpace)
 { drawText((int)v.x, (int)v.y, str, Color(1.0f, 1.0f, 1.0f), isScreenSpace); }
 
 void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c, bool isScreenSpace)

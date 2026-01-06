@@ -35,6 +35,7 @@ void CameraTest_Level::update(GameLoop &gl) // Runs every frame while the level 
 void CameraTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
 {
     gfx.drawRect(0, 0, 10, 10, 'A', ' ', false);
+    gfx.drawText(-10, -10, "Hello World!", false);
 
     std::ostringstream oss = std::ostringstream();
     oss << "Position: " << (std::string)gfx.currentCamera.transform.position;

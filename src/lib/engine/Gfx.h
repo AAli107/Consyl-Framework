@@ -24,10 +24,10 @@ public:
     void drawRect(int x, int y, int w, int h, AsciiPixel c, bool isScreenSpace);
     void drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace);
     void drawRect(const Vec2 v, const Vec2 d, AsciiPixel c, bool isScreenSpace);
-    void drawText(int x, int y, const std::string str, Color color, bool isScreenSpace);
-    void drawText(const Vec2 v, const std::string str, Color color, bool isScreenSpace);
-    void drawText(int x, int y, const std::string str, bool isScreenSpace);
-    void drawText(const Vec2 v, const std::string str, bool isScreenSpace);
+    void drawText(int x, int y, const std::string& str, Color color, bool isScreenSpace);
+    void drawText(const Vec2 v, const std::string& str, Color color, bool isScreenSpace);
+    void drawText(int x, int y, const std::string& str, bool isScreenSpace);
+    void drawText(const Vec2 v, const std::string& str, bool isScreenSpace);
     void drawLine(int x0, int y0, int x1, int y1, AsciiPixel c, bool isScreenSpace);
     void drawLine(const Vec2 v0, const Vec2 v1, AsciiPixel c, bool isScreenSpace);
     void drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace);
