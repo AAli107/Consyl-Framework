@@ -86,15 +86,15 @@ void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel outerC, AsciiPixel inn
     double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
     double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
 
-    int halfWidth = GFX_WIDTH / 2;
-    int halfHeight = GFX_HEIGHT / 2;
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
 
     for (int dy = y; dy < y+h; dy++)
     {
         for (int dx = x; dx < x+w; dx++)
         {
-            int posX = static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + (isScreenSpace ? 0 : halfWidth);
-            int posY = static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + (isScreenSpace ? 0 : halfHeight);
+            int posX = static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + halfWidth;
+            int posY = static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + halfHeight;
 
             if (posX < 0 || posX >= GFX_WIDTH || posY < 0 || posY >= GFX_HEIGHT) continue;
             AsciiPixel c = dx == x || dx == (x+w)-1 || dy == y || dy == (y+h)-1 ? outerC : innerC;
@@ -164,9 +164,19 @@ void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c, bool isScreenSp
     int dy = abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
     int err = (dx > dy ? dx : -dy) / 2, e2;
 
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
     for (;;)
     {
-        setPixel(x0, y0, c);
+        setPixel(
+            static_cast<int>(std::lround(static_cast<double>(x0) - camPosX)) + halfWidth, 
+            static_cast<int>(std::lround(static_cast<double>(y0) - camPosY)) + halfHeight,
+            c
+        );
 
         if (x0 == x1 && y0 == y1)
             break;
