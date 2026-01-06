@@ -44,6 +44,8 @@ public:
     size_t gameObjectCount() const;
     std::vector<GameObject*> getGameObjects() const;
     void setBackgroundColor(const Color c);
+    void setCamera(const Camera camera);
+    Camera& getCamera();
 };
 
 #endif
