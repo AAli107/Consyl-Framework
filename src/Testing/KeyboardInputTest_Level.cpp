@@ -129,5 +129,5 @@ void KeyboardInputTest_Level::update(GameLoop &gl) // Runs every frame while the
 
 void KeyboardInputTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
 {
-    gfx.drawText(Vec2(0,0), keyboardStr);
+    gfx.drawText(Vec2(0,0), keyboardStr, true);
 }

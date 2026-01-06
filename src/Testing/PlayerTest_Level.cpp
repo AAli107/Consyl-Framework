@@ -53,5 +53,5 @@ void PlayerTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after 
     std::ostringstream oss = std::ostringstream();
     oss << "Position: " << (std::string)pos << '\n' <<
            "Velocity: " << (std::string)vel << '\n';
-    gfx.drawText(VEC2_ZERO, oss.str());
+    gfx.drawText(VEC2_ZERO, oss.str(), true);
 }

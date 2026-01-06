@@ -38,5 +38,5 @@ void CameraTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after 
 
     std::ostringstream oss = std::ostringstream();
     oss << "Position: " << (std::string)gfx.currentCamera.transform.position;
-    gfx.drawText(VEC2_ZERO, oss.str());
+    gfx.drawText(VEC2_ZERO, oss.str(), true);
 }
