@@ -17,8 +17,14 @@ void CameraTest_Level::start(GameLoop &gl) // Runs when the level starts
 
 void CameraTest_Level::update(GameLoop &gl) // Runs every frame while the level is loaded
 {
-    if (isKeyDown(Key::ESCAPE)) { gl.stop(); return; }
+    if (isKeyDown(Key::ESCAPE)) { 
+        gl.stop();
+        return; 
+    }
+}
 
+void CameraTest_Level::tick(GameLoop &gl)
+{
     Vec2 dir = Vec2();
     if (isKeyDown(Key::W)) dir.y--;
     if (isKeyDown(Key::A)) dir.x--;
@@ -29,7 +35,7 @@ void CameraTest_Level::update(GameLoop &gl) // Runs every frame while the level 
     double moveSpeed = (isKeyDown(Key::L_SHIFT) ? 20 : 10);
 
     Camera& currCam = gl.getCamera();
-    currCam.transform.position += dir * gl.deltaTime() * moveSpeed;
+    currCam.transform.position += dir * gl.tickDeltaTime() * moveSpeed;
 }
 
 void CameraTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after update() for graphics rendering
