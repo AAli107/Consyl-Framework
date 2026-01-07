@@ -22,6 +22,7 @@ public:
     Color setSaturation(const float v) const;
     std::string getHexColor() const;
 
+    int asInt() const;
     std::string toString() const;
     operator std::string();
     operator Vec3();

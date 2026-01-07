@@ -90,6 +90,9 @@ Color Color::setSaturation(const float v) const
 std::string Color::getHexColor() const
 { return std::format("#{:02X}{:02X}{:02X}", r, g, b); }
 
+int Color::asInt() const
+{ return (static_cast<int>(r) << 16) | (static_cast<int>(g) << 8) | static_cast<int>(b); }
+
 std::string Color::toString() const
 {
     std::ostringstream oss;
