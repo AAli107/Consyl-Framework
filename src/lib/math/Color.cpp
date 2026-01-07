@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <sstream>
+#include <format>
 
 Color::Color() : r(0), g(0), b(0) {}
 
@@ -56,6 +57,9 @@ Color Color::setSaturation(const float v) const
     
     return Color(std::lerp(gray, rf, v), std::lerp(gray, gf, v), std::lerp(gray, bf, v));
 }
+
+std::string Color::getHexColor() const
+{ return std::format("#{:02X}{:02X}{:02X}", r, g, b); }
 
 std::string Color::toString() const
 {

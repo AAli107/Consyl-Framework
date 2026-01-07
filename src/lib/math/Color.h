@@ -18,6 +18,7 @@ public:
     Color scale(const float v) const;
     Vec3 normalized() const;
     Color setSaturation(const float v) const;
+    std::string getHexColor() const;
 
     std::string toString() const;
     operator std::string();
