@@ -29,7 +29,7 @@ void ColorTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after u
             gfx.setPixel(r, g, AsciiPixel('A', Color(r / 50.0f, g / 50.0f, b)));
     
     gfx.drawText(Vec2(51, 0), "Hallo!", true);
-    gfx.drawText(Vec2(51, 1), "Hallo!", Color(255, 0, 0), true);
-    gfx.drawText(Vec2(51, 2), "Hallo!", Color(0, 255, 0), true);
-    gfx.drawText(Vec2(51, 3), "Hallo!", Color(0, 0, 255), true);
+    gfx.drawText(Vec2(51, 1), "Hallo!", "#ff0000", true);
+    gfx.drawText(Vec2(51, 2), "Hallo!", "#00ff00", true);
+    gfx.drawText(Vec2(51, 3), "Hallo!", "#0000ff", true);
 }
