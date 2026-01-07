@@ -44,18 +44,3 @@ void showCursor()
 
 void setBackgroundColor(const Color& c)
 { std::cout << "\x1b[48;2;" << int(c.r) << ";" << int(c.g) << ";" << int(c.b) << "m"; }
-
-void setConsoleColor(int index, const std::string hexRgb)
-{
-    int start = (hexRgb.size() == 7 && hexRgb[0] == '#') ? 1 : (hexRgb.size() == 6) ? 0 : -1;
-    if (start < 0) return;
-
-    for (int i = start; i < start + 6; ++i)
-        if (!std::isxdigit(static_cast<unsigned char>(hexRgb[i]))) return;
-
-    std::cout << "\x1b]4;" << index << ";rgb:"
-        << hexRgb.substr(start    , 2) << "/"
-        << hexRgb.substr(start + 2, 2) << "/"
-        << hexRgb.substr(start + 4, 2)
-        << "\x07" << std::flush;
-}

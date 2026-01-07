@@ -9,6 +9,5 @@ void moveCursorTop();
 void hideCursor();
 void showCursor();
 void setBackgroundColor(const Color& c);
-void setConsoleColor(int index, const std::string hexRgb);
 
 #endif
