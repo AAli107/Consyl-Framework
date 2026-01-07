@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <sstream>
+#include <format>
 
 Color::Color() : r(0), g(0), b(0) {}
 
@@ -26,6 +27,35 @@ Color::Color(double r, double g, double b) :
     r(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(r * 255.0)), 0, 255))),
     g(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(g * 255.0)), 0, 255))),
     b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0)), 0, 255)))
+{}
+
+Color::Color(const std::string hex)
+{
+    std::string_view sv = hex;
+
+    if (!sv.empty() && sv.front() == '#')
+        sv.remove_prefix(1);
+
+    if (sv.size() != 6) return;
+
+    auto parse_byte = [](std::string_view s, unsigned char& out) -> bool {
+        unsigned int value = 0;
+        auto [ptr, ec] = std::from_chars(s.data(), s.data() + s.size(), value, 16);
+        if (ec != std::errc{} || value > 255)
+            return false;
+        out = static_cast<unsigned char>(value);
+        return true;
+    };
+
+    if (!parse_byte(sv.substr(0, 2), r) ||
+        !parse_byte(sv.substr(2, 2), g) ||
+        !parse_byte(sv.substr(4, 2), b)) {
+        r = g = b = 0;
+    }
+}
+
+Color::Color(const char *hex)
+    : Color(hex ? std::string(hex) : std::string())
 {}
 
 Color Color::invert() const
@@ -56,6 +86,12 @@ Color Color::setSaturation(const float v) const
     
     return Color(std::lerp(gray, rf, v), std::lerp(gray, gf, v), std::lerp(gray, bf, v));
 }
+
+std::string Color::getHexColor() const
+{ return std::format("#{:02X}{:02X}{:02X}", r, g, b); }
+
+int Color::asInt() const
+{ return (static_cast<int>(r) << 16) | (static_cast<int>(g) << 8) | static_cast<int>(b); }
 
 std::string Color::toString() const
 {
