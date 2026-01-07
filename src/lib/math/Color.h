@@ -34,4 +34,21 @@ void operator*=(Color& a, const Color& b);
 void operator/=(Color& a, const Color& b);
 bool operator==(const Color& a, const Color& b);
 
+static const Color BLACK        (0, 0, 0);
+static const Color WHITE        (255, 255, 255);
+static const Color RED          (255, 0, 0);
+static const Color GREEN        (0, 255, 0);
+static const Color BLUE         (0, 0, 255);
+static const Color YELLOW       (255, 255, 0);
+static const Color MAGENTA      (255, 0, 255);
+static const Color CYAN         (0, 255, 255);
+static const Color DARK_GRAY    (80, 80, 80);
+static const Color LIGHT_GRAY   (192, 192, 192);
+static const Color DARK_RED     (128, 0, 0);
+static const Color DARK_GREEN   (0, 128, 0);
+static const Color DARK_BLUE    (0, 0, 128);
+static const Color DARK_YELLOW  (128, 128, 0);
+static const Color DARK_MAGENTA (128, 0, 128);
+static const Color DARK_CYAN    (0, 128, 128);
+
 #endif
