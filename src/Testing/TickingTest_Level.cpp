@@ -33,10 +33,10 @@ void TickingTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after
         if (auto tickingComp = gameObj1->getComponent<TickingComponent>()) {
             std::ostringstream oss;
             oss << "Ticks Alive: " << tickingComp->ticksAlive;
-            gfx.drawText(gameObj1->transform.position + Vec3(2, 2), oss.str());
+            gfx.drawText(gameObj1->transform.position + Vec3(2, 2), oss.str(), true);
         }
     }
     std::ostringstream oss;
     oss << "Tick Rate: " << gl.getTickRate() << "\nTick Delta: " << gl.tickDeltaTime();
-    gfx.drawText(0,0, oss.str());
+    gfx.drawText(0,0, oss.str(), true);
 }

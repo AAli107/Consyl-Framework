@@ -79,41 +79,63 @@ AsciiPixel Gfx::getPixel(int x, int y) const
 
 AsciiPixel Gfx::getPixel(const Vec2 v) const { return getPixel((int)v.x, (int)v.y); }
 
-void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel outerC, AsciiPixel innerC)
+void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
 {
-    for (size_t dy = y; dy < y+h; dy++)
+    if (w <= 0 || h <= 0) return;
+
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
+    for (int dy = y; dy < y+h; dy++)
     {
-        for (size_t dx = x; dx < x+w; dx++)
+        for (int dx = x; dx < x+w; dx++)
         {
-            if (dx < 0 || dx >= GFX_WIDTH || dy < 0 || dy >= GFX_HEIGHT) continue;
+            int posX = static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + halfWidth;
+            int posY = static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + halfHeight;
+
+            if (posX < 0 || posX >= GFX_WIDTH || posY < 0 || posY >= GFX_HEIGHT) continue;
             AsciiPixel c = dx == x || dx == (x+w)-1 || dy == y || dy == (y+h)-1 ? outerC : innerC;
-            setPixel(dx, dy, c);
+            setPixel(posX, posY, c);
         }
     }
 }
 
-void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel c) { drawRect(x, y, w, h, c, c); }
+void Gfx::drawRect(int x, int y, int w, int h, AsciiPixel c, bool isScreenSpace)
+{ drawRect(x, y, w, h, c, c, isScreenSpace); }
 
-void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel innerC) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, outerC, innerC); }
+void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
+{ drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, outerC, innerC, isScreenSpace); }
 
-void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel c) { drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c); }
+void Gfx::drawRect(const Vec2 v, const Vec2 d, AsciiPixel c, bool isScreenSpace)
+{ drawRect((int)v.x, (int)v.y, (int)d.x, (int)d.y, c, c, isScreenSpace); }
 
-void Gfx::drawText(int x, int y, const std::string str, Color color)
-{
-    int charX = x;
-    int charY = y;
+void Gfx::drawText(int x, int y, const std::string& str, Color color, bool isScreenSpace)
+{    
+    int baseX = static_cast<int>(std::lround(
+        static_cast<double>(x) - (isScreenSpace ? 0.0 : currentCamera.transform.position.x)
+    )) + (isScreenSpace ? 0 : (GFX_WIDTH / 2));
+
+    int baseY = static_cast<int>(std::lround(
+        static_cast<double>(y) - (isScreenSpace ? 0.0 : currentCamera.transform.position.y)
+    )) + (isScreenSpace ? 0 : (GFX_HEIGHT / 2));
+
+    int charX = baseX;
+    int charY = baseY;
 
     for (char c : str)
     {
         switch (c)
         {
         case '\n':
-            charX = x;
+            charX = baseX;
             charY++;
             continue;
 
         case '\t':
-            charX = ((charX / 4) + 1) * 4;
+            charX = (((charX - baseX) / 4) + 1) * 4 + baseX;
             continue;
         }
 
@@ -127,21 +149,34 @@ void Gfx::drawText(int x, int y, const std::string str, Color color)
     }
 }
 
-void Gfx::drawText(const Vec2 v, std::string str, Color color) { drawText((int)v.x, (int)v.y, str, color); }
+void Gfx::drawText(const Vec2 v, const std::string& str, Color color, bool isScreenSpace)
+{ drawText((int)v.x, (int)v.y, str, color, isScreenSpace); }
 
-void Gfx::drawText(int x, int y, const std::string str) { drawText(x, y, str, Color(1.0f, 1.0f, 1.0f)); }
+void Gfx::drawText(int x, int y, const std::string& str, bool isScreenSpace)
+{ drawText(x, y, str, Color(1.0f, 1.0f, 1.0f), isScreenSpace); }
 
-void Gfx::drawText(const Vec2 v, std::string str) { drawText((int)v.x, (int)v.y, str, Color(1.0f, 1.0f, 1.0f)); }
+void Gfx::drawText(const Vec2 v, const std::string& str, bool isScreenSpace)
+{ drawText((int)v.x, (int)v.y, str, Color(1.0f, 1.0f, 1.0f), isScreenSpace); }
 
-void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c)
+void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c, bool isScreenSpace)
 {
     int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
     int err = (dx > dy ? dx : -dy) / 2, e2;
 
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
     for (;;)
     {
-        setPixel(x0, y0, c);
+        setPixel(
+            static_cast<int>(std::lround(static_cast<double>(x0) - camPosX)) + halfWidth, 
+            static_cast<int>(std::lround(static_cast<double>(y0) - camPosY)) + halfHeight,
+            c
+        );
 
         if (x0 == x1 && y0 == y1)
             break;
@@ -162,10 +197,19 @@ void Gfx::drawLine(int x0, int y0, int x1, int y1, AsciiPixel c)
     }
 }
 
-void Gfx::drawLine(const Vec2 v0, const Vec2 v1, AsciiPixel c) { drawLine((int)v0.x, (int)v0.y, (int)v1.x, (int)v1.y, c); }
+void Gfx::drawLine(const Vec2 v0, const Vec2 v1, AsciiPixel c, bool isScreenSpace)
+{ drawLine((int)v0.x, (int)v0.y, (int)v1.x, (int)v1.y, c, isScreenSpace); }
 
-void Gfx::drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel innerC)
+void Gfx::drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
 {
+    if (radius <= 0) return;
+
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
     for (int dy = y - radius; dy <= y + radius; dy++)
     {
         for (int dx = x - radius; dx <= x + radius; dx++)
@@ -174,21 +218,41 @@ void Gfx::drawCircle(int x, int y, int radius, AsciiPixel outerC, AsciiPixel inn
 
             if (dist > radius + 0.5) continue;
 
-            setPixel(dx, dy, std::abs(dist - radius) < 0.5 ? outerC : innerC);
+            setPixel(
+                static_cast<int>(std::lround(static_cast<double>(dx) - camPosX)) + halfWidth,
+                static_cast<int>(std::lround(static_cast<double>(dy) - camPosY)) + halfHeight,
+                std::abs(dist - radius) < 0.5 ? outerC : innerC
+            );
         }
     }
 }
 
-void Gfx::drawCircle(int x, int y, int radius, AsciiPixel c) { drawCircle(x, y, radius, c, c); }
+void Gfx::drawCircle(int x, int y, int radius, AsciiPixel c, bool isScreenSpace)
+{ drawCircle(x, y, radius, c, c, isScreenSpace); }
 
-void Gfx::drawCircle(const Vec2 v, int radius, AsciiPixel outerC, AsciiPixel innerC) { drawCircle((int)v.x, (int)v.y, radius, outerC, innerC); }
+void Gfx::drawCircle(const Vec2 v, int radius, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
+{ drawCircle((int)v.x, (int)v.y, radius, outerC, innerC, isScreenSpace); }
 
-void Gfx::drawCircle(const Vec2 v, int radius, AsciiPixel c) { drawCircle((int)v.x, (int)v.y, radius, c, c); }
+void Gfx::drawCircle(const Vec2 v, int radius, AsciiPixel c, bool isScreenSpace)
+{ drawCircle((int)v.x, (int)v.y, radius, c, c, isScreenSpace); }
 
-void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel outerC, AsciiPixel innerC)
+void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
 {
     static auto edgeFunc = [](int x0, int y0, int x1, int y1, int x, int y) -> int64_t 
     { return int64_t(x - x0) * int64_t(y1 - y0) - int64_t(y - y0) * int64_t(x1 - x0); };
+
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
+    x0 = static_cast<int>(std::lround(static_cast<double>(x0) - camPosX)) + halfWidth;
+    y0 = static_cast<int>(std::lround(static_cast<double>(y0) - camPosY)) + halfHeight;
+    x1 = static_cast<int>(std::lround(static_cast<double>(x1) - camPosX)) + halfWidth;
+    y1 = static_cast<int>(std::lround(static_cast<double>(y1) - camPosY)) + halfHeight;
+    x2 = static_cast<int>(std::lround(static_cast<double>(x2) - camPosX)) + halfWidth;
+    y2 = static_cast<int>(std::lround(static_cast<double>(y2) - camPosY)) + halfHeight;
 
     int minX = std::min({ x0, x1, x2 });
     int maxX = std::max({ x0, x1, x2 });
@@ -202,9 +266,9 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel out
 
     int64_t area = edgeFunc(x0, y0, x1, y1, x2, y2);
     if (area == 0) {
-        drawLine(x0, y0, x1, y1, outerC);
-        drawLine(x1, y1, x2, y2, outerC);
-        drawLine(x2, y2, x0, y0, outerC);
+        drawLine(x0, y0, x1, y1, outerC, true);
+        drawLine(x1, y1, x2, y2, outerC, true);
+        drawLine(x2, y2, x0, y0, outerC, true);
         return;
     }
 
@@ -222,33 +286,36 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel out
         }
     }
 
-    drawLine(x0, y0, x1, y1, outerC);
-    drawLine(x1, y1, x2, y2, outerC);
-    drawLine(x2, y2, x0, y0, outerC);
+    drawLine(x0, y0, x1, y1, outerC, true);
+    drawLine(x1, y1, x2, y2, outerC, true);
+    drawLine(x2, y2, x0, y0, outerC, true);
 }
 
-void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel c) { drawTri(x0, y0, x1, y1, x2, y2, c, c); }
+void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel c, bool isScreenSpace)
+{ drawTri(x0, y0, x1, y1, x2, y2, c, c, isScreenSpace); }
 
-void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, AsciiPixel outerC, AsciiPixel innerC) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, outerC, innerC); }
+void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
+{ drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, outerC, innerC, isScreenSpace); }
 
-void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, AsciiPixel c) { drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, c, c); }
+void Gfx::drawTri(const Vec2 v0, const Vec2 v1, const Vec2 v2, AsciiPixel c, bool isScreenSpace)
+{ drawTri(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, c, c, isScreenSpace); }
 
-void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, AsciiPixel outerC, AsciiPixel innerC)
+void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
 {
-    drawTri(x0, y0, x1, y1, x2, y2, innerC, innerC);
-    drawTri(x0, y0, x2, y2, x3, y3, innerC, innerC);
+    drawTri(x0, y0, x1, y1, x2, y2, innerC, innerC, isScreenSpace);
+    drawTri(x0, y0, x2, y2, x3, y3, innerC, innerC, isScreenSpace);
 
-    drawLine(x0, y0, x1, y1, outerC);
-    drawLine(x1, y1, x2, y2, outerC);
-    drawLine(x2, y2, x3, y3, outerC);
-    drawLine(x3, y3, x0, y0, outerC);
+    drawLine(x0, y0, x1, y1, outerC, isScreenSpace);
+    drawLine(x1, y1, x2, y2, outerC, isScreenSpace);
+    drawLine(x2, y2, x3, y3, outerC, isScreenSpace);
+    drawLine(x3, y3, x0, y0, outerC, isScreenSpace);
 }
 
-void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, AsciiPixel c) 
-{ drawQuad(x0, y0, x1, y1, x2, y2, x3, y3, c, c); }
+void Gfx::drawQuad(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3, AsciiPixel c, bool isScreenSpace) 
+{ drawQuad(x0, y0, x1, y1, x2, y2, x3, y3, c, c, isScreenSpace); }
 
-void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, AsciiPixel outerC, AsciiPixel innerC)
-{ drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, outerC, innerC); }
+void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, AsciiPixel outerC, AsciiPixel innerC, bool isScreenSpace)
+{ drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, outerC, innerC, isScreenSpace); }
 
-void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, AsciiPixel c)
-{ drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, c, c); }
+void Gfx::drawQuad(const Vec2 v0, const Vec2 v1, const Vec2 v2, const Vec2 v3, AsciiPixel c, bool isScreenSpace)
+{ drawQuad(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, c, c, isScreenSpace); }

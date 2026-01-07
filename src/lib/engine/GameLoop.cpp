@@ -174,6 +174,10 @@ std::vector<GameObject*> GameLoop::getGameObjects() const
 }
 
 void GameLoop::setBackgroundColor(const Color c)
-{
-    gfx.backgroundColor = c;
-}
+{ gfx.backgroundColor = c; }
+
+void GameLoop::setCamera(const Camera camera)
+{ gfx.currentCamera = camera; }
+
+Camera& GameLoop::getCamera()
+{ return gfx.currentCamera; }

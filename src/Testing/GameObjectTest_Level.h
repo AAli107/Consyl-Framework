@@ -17,7 +17,7 @@ public:
 
     }
     void render(GameLoop& gl, Gfx& gfx) override {
-        gfx.drawLine(parent()->transform.position, parent()->transform.position + (parent()->transform.scale * 10), 'X');
+        gfx.drawLine(parent()->transform.position, parent()->transform.position + (parent()->transform.scale * 10), 'X', true);
     }
 };
 

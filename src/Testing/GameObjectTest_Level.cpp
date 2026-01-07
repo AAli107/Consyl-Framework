@@ -45,11 +45,11 @@ void GameObjectTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right af
     auto gameObjects = gl.getGameObjects();
 
     for (auto& go : gameObjects)
-        gfx.drawRect(go->transform.position, go->transform.scale * 10, '#', ' ');
+        gfx.drawRect(go->transform.position, go->transform.scale * 10, '#', ' ', true);
 
     auto gameObj2 = gl.getGameObjectByName("Game Object 2");
     if (gameObj2)
-        gfx.drawText(gameObj2->transform.position + Vec3(2, 2), gl.getNameOfGameObject(gameObj2));
+        gfx.drawText(gameObj2->transform.position + Vec3(2, 2), gl.getNameOfGameObject(gameObj2), true);
 
     auto gameObj1 = gl.getGameObjectByName("Game Object 1");
     if (gameObj1) {
@@ -57,10 +57,10 @@ void GameObjectTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right af
         if (dummyComp) {
             std::ostringstream oss;
             oss << "Speed: " << dummyComp->speed;
-            gfx.drawText(gameObj1->transform.position + Vec3(2, 2), oss.str());
+            gfx.drawText(gameObj1->transform.position + Vec3(2, 2), oss.str(), true);
         }
     }
     std::ostringstream oss;
     oss << "Game object count: " << gl.gameObjectCount();
-    gfx.drawText(0,0, oss.str());
+    gfx.drawText(0,0, oss.str(), true);
 }
