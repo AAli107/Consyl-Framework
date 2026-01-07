@@ -29,6 +29,31 @@ Color::Color(double r, double g, double b) :
     b(static_cast<unsigned char>(std::clamp(static_cast<int>(std::round(b * 255.0)), 0, 255)))
 {}
 
+Color::Color(const std::string hex)
+{
+    std::string_view sv = hex;
+
+    if (!sv.empty() && sv.front() == '#')
+        sv.remove_prefix(1);
+
+    if (sv.size() != 6) return;
+
+    auto parse_byte = [](std::string_view s, unsigned char& out) -> bool {
+        unsigned int value = 0;
+        auto [ptr, ec] = std::from_chars(s.data(), s.data() + s.size(), value, 16);
+        if (ec != std::errc{} || value > 255)
+            return false;
+        out = static_cast<unsigned char>(value);
+        return true;
+    };
+
+    if (!parse_byte(sv.substr(0, 2), r) ||
+        !parse_byte(sv.substr(2, 2), g) ||
+        !parse_byte(sv.substr(4, 2), b)) {
+        r = g = b = 0;
+    }
+}
+
 Color Color::invert() const
 { return Color(255 - r, 255 - g, 255 - b); }
 
