@@ -42,7 +42,7 @@ static const Color BLUE         (0, 0, 255);
 static const Color YELLOW       (255, 255, 0);
 static const Color MAGENTA      (255, 0, 255);
 static const Color CYAN         (0, 255, 255);
-static const Color DARK_GRAY    (80, 80, 80);
+static const Color DARK_GRAY    (128, 128, 128);
 static const Color LIGHT_GRAY   (192, 192, 192);
 static const Color DARK_RED     (128, 0, 0);
 static const Color DARK_GREEN   (0, 128, 0);
