@@ -241,6 +241,19 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel out
     static auto edgeFunc = [](int x0, int y0, int x1, int y1, int x, int y) -> int64_t 
     { return int64_t(x - x0) * int64_t(y1 - y0) - int64_t(y - y0) * int64_t(x1 - x0); };
 
+    double camPosX = isScreenSpace ? 0.0 : currentCamera.transform.position.x;
+    double camPosY = isScreenSpace ? 0.0 : currentCamera.transform.position.y;
+
+    int halfWidth = isScreenSpace ? 0 : (GFX_WIDTH / 2);
+    int halfHeight = isScreenSpace ? 0 : (GFX_HEIGHT / 2);
+
+    x0 = static_cast<int>(std::lround(static_cast<double>(x0) - camPosX)) + halfWidth;
+    y0 = static_cast<int>(std::lround(static_cast<double>(y0) - camPosY)) + halfHeight;
+    x1 = static_cast<int>(std::lround(static_cast<double>(x1) - camPosX)) + halfWidth;
+    y1 = static_cast<int>(std::lround(static_cast<double>(y1) - camPosY)) + halfHeight;
+    x2 = static_cast<int>(std::lround(static_cast<double>(x2) - camPosX)) + halfWidth;
+    y2 = static_cast<int>(std::lround(static_cast<double>(y2) - camPosY)) + halfHeight;
+
     int minX = std::min({ x0, x1, x2 });
     int maxX = std::max({ x0, x1, x2 });
     int minY = std::min({ y0, y1, y2 });
@@ -253,9 +266,9 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel out
 
     int64_t area = edgeFunc(x0, y0, x1, y1, x2, y2);
     if (area == 0) {
-        drawLine(x0, y0, x1, y1, outerC, isScreenSpace);
-        drawLine(x1, y1, x2, y2, outerC, isScreenSpace);
-        drawLine(x2, y2, x0, y0, outerC, isScreenSpace);
+        drawLine(x0, y0, x1, y1, outerC, true);
+        drawLine(x1, y1, x2, y2, outerC, true);
+        drawLine(x2, y2, x0, y0, outerC, true);
         return;
     }
 
@@ -273,9 +286,9 @@ void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel out
         }
     }
 
-    drawLine(x0, y0, x1, y1, outerC, isScreenSpace);
-    drawLine(x1, y1, x2, y2, outerC, isScreenSpace);
-    drawLine(x2, y2, x0, y0, outerC, isScreenSpace);
+    drawLine(x0, y0, x1, y1, outerC, true);
+    drawLine(x1, y1, x2, y2, outerC, true);
+    drawLine(x2, y2, x0, y0, outerC, true);
 }
 
 void Gfx::drawTri(int x0, int y0, int x1, int y1, int x2, int y2, AsciiPixel c, bool isScreenSpace)

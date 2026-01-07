@@ -38,6 +38,7 @@ void CameraTest_Level::render(GameLoop &gl, Gfx &gfx) // Runs after right after 
     gfx.drawText(-10, -10, "Hello World!", false);
     gfx.drawLine(-15, 15, -10, 20, '-', false);
     gfx.drawCircle(15, -15, 6, '+', '-', false);
+    gfx.drawTri(20, 20, 30, 20, 25, 10, '+', '-', false);
     
     std::ostringstream oss = std::ostringstream();
     oss << "Position: " << (std::string)gfx.currentCamera.transform.position;
