@@ -58,4 +58,4 @@ void setConsoleColor(int index, const std::string hexRgb)
         << hexRgb.substr(start + 2, 2) << "/"
         << hexRgb.substr(start + 4, 2)
         << "\x07" << std::flush;
-    }
+}
