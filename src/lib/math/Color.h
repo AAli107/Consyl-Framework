@@ -13,6 +13,7 @@ public:
     Color(float r, float g, float b);
     Color(double r, double g, double b);
     Color(const std::string hex);
+    Color(const char* hex);
 
     Color invert() const;
     Color diff(const Color& c) const;

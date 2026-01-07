@@ -54,6 +54,10 @@ Color::Color(const std::string hex)
     }
 }
 
+Color::Color(const char *hex)
+    : Color(hex ? std::string(hex) : std::string())
+{}
+
 Color Color::invert() const
 { return Color(255 - r, 255 - g, 255 - b); }
 
