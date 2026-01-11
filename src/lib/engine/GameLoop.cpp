@@ -1,16 +1,9 @@
 #include <iostream>
 #include <chrono>
-#include <assert.h>
 
 #include "GameLoop.h"
 #include "Level.h"
 #include "../utils/sleep.h"
-
-GameLoop::GameLoop(Level* level, int tickRate) {
-    assert(tickRate > 0);
-    openLevel(level);
-    setTickRate(tickRate);
-}
 
 void GameLoop::run()
 {
@@ -60,16 +53,6 @@ void GameLoop::run()
 }
 
 void GameLoop::stop() { isRunning = false; }
-
-void GameLoop::openLevel(Level* level)
-{
-    if (!level) return;
-    if (currentLevel)
-        currentLevel->end(*this);
-    world = {};
-    currentLevel = level;
-    currentLevel->start(*this);
-}
 
 double GameLoop::deltaTime() { return deltaT; }
 
