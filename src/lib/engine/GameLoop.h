@@ -3,11 +3,12 @@
 
 #include "Gfx.h"
 #include "World.h"
+#include "Level.h"
 
 #include <concepts>
 #include <utility>
-
-class Level;
+#include <assert.h>
+#include <memory>
 
 class GameLoop
 {
@@ -16,7 +17,7 @@ private:
     double timeSinceStart = 0.0;
     double deltaT = 0.0;
     Gfx gfx = Gfx();
-    Level* currentLevel = nullptr;
+    std::unique_ptr<Level> currentLevel = nullptr;
     World world{};
     double tickAccumulatedTime = 0.0;
     int tickRate;
@@ -24,10 +25,18 @@ private:
 public:
     bool showStats = false;
 public:
-    GameLoop(Level* startingLevel, int tickRate);
+    GameLoop() = default;
+    template<typename T> requires std::derived_from<T, Level> static GameLoop create(int tps)
+    {
+        assert(tps > 0);
+        GameLoop gl;
+        gl.openLevel<T>();
+        gl.setTickRate(tps);
+        return gl;
+    }
     void run();
     void stop();
-    void openLevel(Level* level);
+    template <std::derived_from<Level> T> void openLevel();
     double deltaTime();
     double tickDeltaTime();
     double timeRunning();
@@ -47,5 +56,15 @@ public:
     void setCamera(const Camera camera);
     Camera& getCamera();
 };
+
+template <std::derived_from<Level> T> inline void GameLoop::openLevel()
+{
+    if (currentLevel.get())
+        currentLevel->end(*this);
+    world = {};
+    currentLevel = std::make_unique<T>();
+    if (currentLevel.get())
+        currentLevel->start(*this);
+}
 
 #endif
