@@ -26,6 +26,8 @@ public:
 Vec2 operator+(const Vec2& a, const Vec2& b);
 Vec2 operator-(const Vec2& a, const Vec2& b);
 Vec2 operator-(const Vec2& a);
+Vec2 operator*(const Vec2& a, const Vec2& b);
+Vec2 operator/(const Vec2& a, const Vec2& b);
 Vec2 operator*(const Vec2& a, const double& b);
 Vec2 operator/(const Vec2& a, const double& b);
 Vec2 operator*(const double& a, const Vec2& b);
