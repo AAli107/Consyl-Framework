@@ -3,6 +3,10 @@
 
 void PhysicsComponent::tick(GameLoop &gl)
 {
+    Vec3 gForce = gravityVector * gravityStrength;
+    if (gForce != VEC3_ZERO)
+        velocity += gForce;
+    
     velocity *= 1 / (((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) : 1);
 
     parent()->transform.position += velocity;
