@@ -3,12 +3,15 @@
 
 void PhysicsComponent::tick(GameLoop &gl)
 {
+    // gravity (all objects move towards the direction of gravity, which the gravity source would likely be your Mo-)
     Vec3 gForce = gravityVector * gravityStrength;
     if (gForce != VEC3_ZERO)
         velocity += gForce;
     
+    // Friction calculation
     velocity *= 1 / (((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) : 1);
     
+    // Apply velocity
     if (velocity != VEC3_ZERO)
         parent()->transform.position += velocity;
 }
