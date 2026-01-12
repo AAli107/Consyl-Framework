@@ -3,17 +3,19 @@
 
 void PhysicsComponent::tick(GameLoop &gl)
 {
+    const Vec3 constaintVec = Vec3(constrainX ? 1 : 0, constrainY ? 1 : 0, constrainZ ? 1 : 0);
+
     // gravity (all objects move towards the direction of gravity, which the gravity source would likely be your Mo-)
-    Vec3 gForce = gravityVector * gravityStrength;
+    Vec3 gForce = gravityVector * gravityStrength * constaintVec;
     if (gForce != VEC3_ZERO)
         velocity += gForce;
     
     // Friction calculation
-    velocity *= 1 / (((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) : 1);
+    velocity *= (1 / (((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((doAirborneFriction ? (friction * (1 / mass)) : friction) + 1) : 1)) * constaintVec;
     
     // Apply velocity
     if (velocity != VEC3_ZERO)
-        parent()->transform.position += velocity;
+        parent()->transform.position += velocity * constaintVec;
 }
 
 void PhysicsComponent::addVelocity(const Vec3 &velocity, bool ignoreMass)
