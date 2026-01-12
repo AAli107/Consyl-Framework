@@ -56,6 +56,10 @@ void operator*=(Vec2 &a, const double &b) { a = Vec2(a.x * b, a.y * b); }
 
 void operator/=(Vec2 &a, const double &b) { a = Vec2(a.x / b, a.y / b); }
 
+void operator*=(Vec2 &a, const Vec2 &b) { a = Vec2(a.x * b.x, a.y * b.y); }
+
+void operator/=(Vec2 &a, const Vec2 &b) { a = Vec2(a.x / b.x, a.y / b.y); }
+
 void operator++(Vec2 &a) { a = Vec2(a.x+1, a.y+1); }
 
 void operator--(Vec2 &a) { a = Vec2(a.x-1, a.y-1); }

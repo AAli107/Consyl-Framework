@@ -43,6 +43,8 @@ void operator+=(Vec3& a, const Vec3& b);
 void operator-=(Vec3& a, const Vec3& b);
 void operator*=(Vec3& a, const double& b);
 void operator/=(Vec3& a, const double& b);
+void operator*=(Vec3& a, const Vec3& b);
+void operator/=(Vec3& a, const Vec3& b);
 void operator++(Vec3& a);
 void operator--(Vec3& a);
 bool operator==(const Vec3& a, const Vec3& b);
