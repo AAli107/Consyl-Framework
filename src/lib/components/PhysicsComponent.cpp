@@ -3,7 +3,7 @@
 
 void PhysicsComponent::tick(GameLoop &gl)
 {
-    const Vec3 constaintVec = Vec3(constrainX ? 1 : 0, constrainY ? 1 : 0, constrainZ ? 1 : 0);
+    const Vec3 constaintVec = Vec3(constrainX ? 0 : 1, constrainY ? 0 : 1, constrainZ ? 0 : 1);
 
     // gravity (all objects move towards the direction of gravity, which the gravity source would likely be your Mo-)
     Vec3 gForce = gravityVector.normalized() * gravityStrength * constaintVec;
