@@ -4,7 +4,7 @@
 #include "../engine/Component.h"
 #include "../math/VecMath.h"
 
-class PhysicsComponent : Component
+class PhysicsComponent : public Component
 {
 public:
     /// @brief Controls the direction and speed that the game object moves in over time.
