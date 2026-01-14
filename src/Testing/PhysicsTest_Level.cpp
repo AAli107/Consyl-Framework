@@ -12,6 +12,7 @@
 //                     Change this -- ^^^^^^^^^^^
 
 bool hasPressedSpace = false;
+bool hasPressedEnter = false;
 
 void PhysicsTest_Level::start(GameLoop &gl) // Runs when the level starts
 {
@@ -53,6 +54,14 @@ void PhysicsTest_Level::update(GameLoop &gl) // Runs every frame while the level
         hasPressedSpace = true;
     } else {
         hasPressedSpace = false;
+    }
+
+    if (isKeyDown(Key::ENTER)) {
+        if (!hasPressedEnter)
+            physicsComponent->doAirborneFriction = !physicsComponent->doAirborneFriction;
+        hasPressedEnter = true;
+    } else {
+        hasPressedEnter = false;
     }
 }
 
