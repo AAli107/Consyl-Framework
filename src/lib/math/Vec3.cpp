@@ -47,6 +47,10 @@ Vec3 operator-(const Vec3 &a, const Vec3 &b) { return Vec3(a.x - b.x, a.y - b.y,
 
 Vec3 operator-(const Vec3 &a) { return Vec3(-a.x, -a.y, -a.z); }
 
+Vec3 operator*(const Vec3 &a, const Vec3 &b) { return Vec3(a.x * b.x, a.y * b.y, a.z * b.z); }
+
+Vec3 operator/(const Vec3 &a, const Vec3 &b) { return Vec3(a.x / b.x, a.y / b.y, a.z / b.z); }
+
 Vec3 operator*(const Vec3 &a, const double &b) { return Vec3(a.x * b, a.y * b, a.z * b); }
 
 Vec3 operator/(const Vec3 &a, const double &b) { return Vec3(a.x / b, a.y / b, a.z / b); }
@@ -62,6 +66,10 @@ void operator-=(Vec3 &a, const Vec3 &b) { a = Vec3(a.x - b.x, a.y - b.y, a.z - b
 void operator*=(Vec3 &a, const double &b) { a = Vec3(a.x * b, a.y * b, a.z * b); }
 
 void operator/=(Vec3 &a, const double &b) { a = Vec3(a.x / b, a.y / b, a.z / b); }
+
+void operator*=(Vec3 &a, const Vec3 &b) { a = Vec3(a.x * b.x, a.y * b.y, a.z * b.z); }
+
+void operator/=(Vec3 &a, const Vec3 &b) { a = Vec3(a.x / b.x, a.y / b.y, a.z / b.z); }
 
 void operator++(Vec3 &a) { a = Vec3(a.x+1, a.y+1, a.z+1); }
 

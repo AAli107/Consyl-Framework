@@ -36,6 +36,10 @@ Vec2 operator-(const Vec2 &a, const Vec2 &b) { return Vec2(a.x - b.x, a.y - b.y)
 
 Vec2 operator-(const Vec2 &a) { return Vec2(-a.x, -a.y); }
 
+Vec2 operator*(const Vec2 &a, const Vec2 &b) { return Vec2(a.x * b.x, a.y * b.y); }
+
+Vec2 operator/(const Vec2 &a, const Vec2 &b) { return Vec2(a.x / b.x, a.y / b.y); }
+
 Vec2 operator*(const Vec2 &a, const double &b) { return Vec2(a.x * b, a.y * b); }
 
 Vec2 operator/(const Vec2 &a, const double &b) { return Vec2(a.x / b, a.y / b); }
@@ -51,6 +55,10 @@ void operator-=(Vec2 &a, const Vec2 &b) { a = Vec2(a.x - b.x, a.y - b.y); }
 void operator*=(Vec2 &a, const double &b) { a = Vec2(a.x * b, a.y * b); }
 
 void operator/=(Vec2 &a, const double &b) { a = Vec2(a.x / b, a.y / b); }
+
+void operator*=(Vec2 &a, const Vec2 &b) { a = Vec2(a.x * b.x, a.y * b.y); }
+
+void operator/=(Vec2 &a, const Vec2 &b) { a = Vec2(a.x / b.x, a.y / b.y); }
 
 void operator++(Vec2 &a) { a = Vec2(a.x+1, a.y+1); }
 
