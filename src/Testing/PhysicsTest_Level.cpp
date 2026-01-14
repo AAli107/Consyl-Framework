@@ -11,6 +11,8 @@
 //      - static auto startingLevel = SampleLevel();
 //                     Change this -- ^^^^^^^^^^^
 
+bool hasPressedSpace = false;
+
 void PhysicsTest_Level::start(GameLoop &gl) // Runs when the level starts
 {
     gl.showStats = true;
@@ -44,6 +46,14 @@ void PhysicsTest_Level::update(GameLoop &gl) // Runs every frame while the level
     double moveSpeed = (isKeyDown(Key::L_SHIFT) ? 2 : 1);
     
     physicsComponent->velocity += dir * gl.deltaTime() * moveSpeed;
+
+    if (isKeyDown(Key::SPACE)) {
+        if (!hasPressedSpace)
+            physicsComponent->addVelocity(VEC3_UP * 0.5, isKeyDown(Key::L_CTRL));
+        hasPressedSpace = true;
+    } else {
+        hasPressedSpace = false;
+    }
 }
 
 void PhysicsTest_Level::tick(GameLoop &gl)
