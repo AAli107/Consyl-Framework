@@ -10,7 +10,7 @@ public:
     Vec2 offset = VEC2_ZERO;
 
 protected:
-    virtual Vec2 CalculateMTV(ColliderComponent2D otherCollider) const = 0;
+    virtual Vec2 CalculateMTV(const ColliderComponent2D& otherCollider) const = 0;
 };
 
 #endif

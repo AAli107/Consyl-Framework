@@ -10,7 +10,7 @@ public:
     Vec3 offset = VEC3_ZERO;
     
 protected:
-    virtual Vec3 CalculateMTV(ColliderComponent3D otherCollider) const = 0;
+    virtual Vec3 CalculateMTV(const ColliderComponent3D& otherCollider) const = 0;
 };
 
 #endif
