@@ -13,6 +13,7 @@ public:
     Vec2(double x, double y);
 
     double length() const;
+    double sqrLength() const;
     Vec2 normalized() const;
     double dot(Vec2 b) const;
     double distance(Vec2 b) const;
