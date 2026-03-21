@@ -40,7 +40,6 @@ for /r "%SRC_FOLDER%" %%f in (*.cpp) do (
     set "OBJ_FILES=!OBJ_FILES! "%BUILD_FOLDER%\%OBJECT_FOLDER%\%%~nf.o""
 )
 
-echo [Linking] %EXE_OUTPUT_FILE%...
 g++ -std=c++20 -O3 !OBJ_FILES! -o "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
 
 if exist "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%" (
