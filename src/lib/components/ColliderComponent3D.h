@@ -8,6 +8,9 @@ class ColliderComponent3D : public ColliderComponent
 public:
     /// @brief Offset/Position of the collider relative to the game object
     Vec3 offset = VEC3_ZERO;
+    
+protected:
+    virtual Vec3 CalculateMTV(ColliderComponent3D otherCollider) const = 0;
 };
 
 #endif
