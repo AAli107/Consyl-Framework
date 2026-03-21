@@ -73,9 +73,9 @@ void operator*=(Vec3 &a, const Vec3 &b) { a = Vec3(a.x * b.x, a.y * b.y, a.z * b
 
 void operator/=(Vec3 &a, const Vec3 &b) { a = Vec3(a.x / b.x, a.y / b.y, a.z / b.z); }
 
-void operator++(Vec3 &a) { a = Vec3(a.x+1, a.y+1, a.z+1); }
+void operator++(Vec3 &a) { a = Vec3(a.x++, a.y++, a.z++); }
 
-void operator--(Vec3 &a) { a = Vec3(a.x-1, a.y-1, a.z-1); }
+void operator--(Vec3 &a) { a = Vec3(a.x--, a.y--, a.z--); }
 
 bool operator==(const Vec3 &a, const Vec3 &b)
 { return a.x == b.x && a.y == b.y && a.z == b.z; }
