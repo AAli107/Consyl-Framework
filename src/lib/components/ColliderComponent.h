@@ -9,8 +9,6 @@
 class ColliderComponent : public Component
 {
 public:
-    /// @brief Offset/Position of the collider relative to the game object
-    Vec3 offset = VEC3_ZERO;
     /// @brief Controls whether the collider has a solid collision or can other colliders pass through
     bool isSolidCollision = true;
     /// @brief The friction strength of the collision it makes
