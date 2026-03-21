@@ -18,6 +18,7 @@ public:
     Vec3(Vec2 v, double z);
 
     double length() const;
+    double sqrLength() const;
     Vec3 normalized() const;
     double dot(Vec3 b) const;
     double distance(Vec3 b) const;

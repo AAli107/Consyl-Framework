@@ -11,6 +11,8 @@ Vec2::Vec2(double x, double y) : x(x), y(y) {}
 
 double Vec2::length() const { return std::sqrt(x * x + y * y); }
 
+double Vec2::sqrLength() const { return x * x + y * y; }
+
 Vec2 Vec2::normalized() const { double len = length(); return len == 0 ? Vec2() : Vec2(x / len, y / len); }
 
 double Vec2::dot(Vec2 b) const { return x * b.x + y * b.y; }
