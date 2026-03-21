@@ -6,6 +6,9 @@ set "OBJECT_FOLDER=obj"
 set "SRC_FOLDER=src"
 set "EXE_OUTPUT_FILE=program.exe"
 
+set "BUILD_ONLY=0"
+if /i "%~1"=="-b" set "BUILD_ONLY=1"
+
 for /f %%a in ('echo prompt $E^| cmd') do set "ESC=%%a"
 set "CLR=!ESC![2K!ESC![1G"
 
@@ -43,8 +46,12 @@ for /r "%SRC_FOLDER%" %%f in (*.cpp) do (
 g++ -std=c++20 -O3 !OBJ_FILES! -o "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
 
 if exist "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%" (
-    echo Build successful. Running...
-    start "" "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
+    if "%BUILD_ONLY%"=="1" (
+        echo Build successful.
+    ) else (
+        echo Build successful. Running...
+        start "" "%BUILD_FOLDER%\%EXE_OUTPUT_FILE%"
+    )
 ) else (
     echo Build failed.
 )
