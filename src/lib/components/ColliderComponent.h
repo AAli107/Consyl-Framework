@@ -25,7 +25,7 @@ public:
     virtual bool isIntersectingWith(const ColliderComponent& collider) const = 0;
     /// @brief Returns whether the collider is intersecting with any other collider
     /// @return 
-    virtual bool isOverlapping() const { return !intersectingColliders.empty(); }
+    bool isOverlapping() const { return !intersectingColliders.empty(); }
     /// @brief Returns whether the collider is intersecting with other colliders, ignoring the provided `ignoredColliders`
     /// @param ignoredColliders 
     /// @return 
